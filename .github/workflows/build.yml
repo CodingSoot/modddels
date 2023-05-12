@@ -1,0 +1,103 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    # Everyday at 8AM
+    - cron: "0 8 * * *"
+
+jobs:
+  modddels_annotation_internal_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          flutter pub get
+        working-directory: packages/modddels_annotation_internal
+
+      - name: Analyze
+        run: flutter analyze
+        working-directory: packages/modddels_annotation_internal
+
+      - name: Run tests
+        run: |
+          dart test
+        working-directory: packages/modddels_annotation_internal
+
+  modddels_tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        channel:
+          - master
+          - stable
+        dependencies:
+          - get
+          - downgrade
+        exclude:
+          # Have latest dependencies on master channel
+          - channel: master
+            dependencies: downgrade
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ matrix.channel }}
+          cache: ${{ matrix.channel == 'stable' }}
+
+      # We exclude the example folder from the CI
+      - name: Removing example folder
+        run: rm -rf example
+        working-directory: packages/modddels
+
+      - name: Install dependencies
+        run: |
+          flutter pub ${{ matrix.dependencies }}
+        working-directory: packages/modddels
+
+      - name: Generate (with modddels_annotation_fpdart)
+        run: |
+          flutter pub run build_runner build --delete-conflicting-outputs
+        working-directory: packages/modddels
+
+      - name: Analyze (with modddels_annotation_fpdart)
+        run: flutter analyze
+        working-directory: packages/modddels
+
+      - name: Run tests (with modddels_annotation_fpdart)
+        run: |
+          dart test
+        working-directory: packages/modddels
+
+      - name: Switch to modddels_annotation_dartz
+        run: |
+          find test/integration_test -name '*.dart' -exec \
+          sed -i 's|import \'package:modddels_annotation_fpdart/modddels_annotation_fpdart.dart\'|import \'package:modddels_annotation_dartz/modddels_annotation_dartz.dart\'|g' {} \;
+        working-directory: packages/modddels
+
+      - name: Generate (with modddels_annotation_dartz)
+        run: |
+          flutter pub run build_runner build --delete-conflicting-outputs
+        working-directory: packages/modddels
+
+      - name: Analyze (with modddels_annotation_dartz)
+        run: flutter analyze
+        working-directory: packages/modddels
+
+      - name: Run tests (with modddels_annotation_dartz)
+        run: |
+          dart test
+        working-directory: packages/modddels

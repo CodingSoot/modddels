@@ -1,0 +1,37 @@
+name: modddels
+description: Generate robust, self-validated models with compile-safe states,
+  seamless failure handling and easy unit-testing.
+version: 0.1.0
+homepage: https://www.modddels.dev
+repository: https://github.com/codingSoot/modddels
+funding:
+  - https://www.buymeacoffee.com/codingsoot
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  analyzer: ^5.6.0
+  build: ^2.3.1
+  collection: ^1.17.1
+  fpdart: ^0.5.0
+  meta: ^1.9.1
+  modddels_annotation_internal:
+    path: ../modddels_annotation_internal
+  recursive_regex: ^1.0.0
+  source_gen: ^1.2.7
+
+dev_dependencies:
+  build_runner: ^2.3.3
+  build_test: ^2.1.7
+  checks: ^0.2.2
+  freezed: ^2.3.3
+  freezed_annotation: ^2.2.0
+  lints: ^2.0.1
+  modddels_annotation_dartz:
+    path: ../modddels_annotation_dartz
+  modddels_annotation_fpdart:
+    path: ../modddels_annotation_fpdart
+  package_config: ^2.1.0
+  source_gen_test: ^1.0.4
+  test: ^1.22.2

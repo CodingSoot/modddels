@@ -1,0 +1,23 @@
+name: modddels_annotation_fpdart
+description: Annotations for the modddels code-generator when using fpdart.
+version: 0.1.0
+homepage: https://www.modddels.dev
+repository: https://github.com/codingSoot/modddels
+funding:
+  - https://www.buymeacoffee.com/codingsoot
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies: 
+  dartz: ^0.10.1
+  equatable: ^2.0.5
+  fpdart: ^0.5.0
+  kt_dart: ^1.1.0
+  meta: ^1.9.1
+  modddels_annotation_internal:
+    path: ../modddels_annotation_internal
+  test: ^1.22.2
+
+dev_dependencies:
+  lints: ^2.0.1

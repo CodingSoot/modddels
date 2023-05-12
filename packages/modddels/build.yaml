@@ -1,0 +1,26 @@
+# Read about `build.yaml` at https://pub.dev/packages/build_config
+targets:
+  $default:
+    builders:
+      modddels:
+        enabled: true
+        generate_for:
+          include:
+            - test/integration_test/integration/**
+      freezed:
+        enabled: true
+        generate_for:
+          include:
+            - test/integration_test/integration_test_utils/**
+            # - test/integration_test/integration/*
+          exclude:
+            - example
+          
+builders:
+  modddels:
+    import: "package:modddels/builder.dart"
+    builder_factories: ["generateModddel"]
+    build_extensions: { ".dart": [".modddel.dart"] }
+    auto_apply: dependents
+    build_to: source
+    required_inputs: [".freezed.dart"]
