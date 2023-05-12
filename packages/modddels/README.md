@@ -1,8 +1,9 @@
-TODO : Add badges
+[![Build](https://github.com/CodingSoot/modddels/actions/workflows/build.yml/badge.svg)](https://github.com/CodingSoot/modddels/actions/workflows/build.yml)
+[![pub package](https://img.shields.io/pub/v/modddels.svg)](https://pub.dartlang.org/packages/modddels)
 
-TODO: Insert light banner image (absolute link)
+![banner](https://raw.githubusercontent.com/CodingSoot/modddels/master/resources/images/Modddels%20banner%20-%20light.png)
 
-Introducing Modddels: a powerful code generator that allows you to create self-validated models with compile-safe states, seamless failure handling, and easy unit-testing.
+**Introducing MODDDELS:** A powerful code generator that allows you to create self-validated models with compile-safe states, seamless failure handling, and easy unit-testing.
 
 # Motivation
 
@@ -34,7 +35,7 @@ You will then need to validate the `name`, `age` and `email` in various parts of
 
 **All these problems (and more) can be resolved by using this package.**
 
-TODO : Insert meme image (absolute)
+![meme](https://raw.githubusercontent.com/CodingSoot/modddels/master/resources/images/Meme.jpg)
 
 The **_Modddels_** package offers a way to validate your models and deal with its different states (valid, invalid...) in a _type-safe_ and _compile-safe_ way.
 
@@ -54,12 +55,12 @@ Check out [**modddels.dev**](https://www.modddels.dev/) for comprehensive docume
 
 If you're interested in contributing, feel free to submit pull requests, report bugs, or suggest new features by creating an issue on the GitHub repository.
 
-For those who want to dive deeper into the source code, you can refer to the architecture.md and internal.md files to better understand the inner workings of the package.
-
-TODO: direct link to files
+For those who want to dive deeper into the source code, you can refer to the [internal.md](https://github.com/CodingSoot/modddels/blob/master/docs/internal/internal.md) and [architecture.md](https://github.com/CodingSoot/modddels/blob/master/docs/internal/architecture.md) files to better understand the inner workings of the package.
 
 # Sponsoring
 
-Your support matters! Help me continue working on my projects by buying me a coffee. Thank you for your contribution!
+Your support matters ! Help me continue working on my projects by [buying me a coffee](https://www.buymeacoffee.com/codingsoot). Thank you for your contribution !
 
-TODO: insert backers list image
+<a href="https://www.buymeacoffee.com/codingsoot" target="_blank"><img src="https://raw.githubusercontent.com/CodingSoot/modddels/master/resources/images/buymeacoffee.svg" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
+![sponsors](https://raw.githubusercontent.com/CodingSoot/modddels/master/resources/images/Sponsors%20list.png)
