@@ -2,11 +2,12 @@ import 'package:build/build.dart';
 import 'package:modddels/src/modddels_generator.dart';
 import 'package:source_gen/source_gen.dart';
 
+/// Build factory for `build_runner`
+///
 Builder generateModddel(BuilderOptions options) => PartBuilder(
       [ModddelsGenerator()],
       '.modddel.dart',
-      header:
-          '''
+      header: '''
       // coverage:ignore-file
       // GENERATED CODE - DO NOT MODIFY BY HAND
       // ignore_for_file: type=lint

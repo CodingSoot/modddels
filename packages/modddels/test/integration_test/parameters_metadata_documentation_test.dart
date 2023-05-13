@@ -305,11 +305,10 @@ void main() async {
             '* The case-modddel abstract invalid union-case\n'
             '* The case-modddel subholder\n'
             'And is not copied in other case-modddel related classes\n', () {
-          for (final testSupport in <
-              TestSupportBase<
-                  SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
-                  SampleParamsBase,
-                  NoSampleOptions>>[
+          for (final testSupport in <TestSupportBase<
+              SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
+              SampleParamsBase,
+              NoSampleOptions>>[
             parametersNonSharedSSealedTestSupport,
             parametersSharedSSealedTestSupport
           ]) {
@@ -453,11 +452,10 @@ void main() async {
             '* The base case-modddel mixin\n'
             '* The case-modddel subholder\n'
             'And is not copied in other case-modddel related classes\n', () {
-          for (final testSupport in <
-              TestSupportBase<
-                  SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
-                  SampleParamsBase,
-                  NoSampleOptions>>[
+          for (final testSupport in <TestSupportBase<
+              SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
+              SampleParamsBase,
+              NoSampleOptions>>[
             withGetterParametersNonSharedSSealedTestSupport,
             withGetterParametersSharedSSealedTestSupport
           ]) {
@@ -583,11 +581,10 @@ void main() async {
             '* The base case-modddel mixin\n'
             '* The case-modddel subholder\n'
             'And is not copied in other case-modddel related classes\n', () {
-          for (final testSupport in <
-              TestSupportBase<
-                  SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
-                  SampleParamsBase,
-                  NoSampleOptions>>[
+          for (final testSupport in <TestSupportBase<
+              SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
+              SampleParamsBase,
+              NoSampleOptions>>[
             parametersNonSharedSSealedTestSupport,
             parametersSharedSSealedTestSupport
           ]) {

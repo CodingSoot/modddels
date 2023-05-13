@@ -364,11 +364,10 @@ void main() async {
             'When the code is generated\n'
             'Then the `@Deprecated` decorator is copied to modddel related code sections\n',
             () {
-          for (final testSupport in <
-              TestSupportBase<
-                  SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
-                  SampleParamsBase,
-                  NoSampleOptions>>[
+          for (final testSupport in <TestSupportBase<
+              SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
+              SampleParamsBase,
+              NoSampleOptions>>[
             parametersNonSharedSSealedTestSupport,
             parametersSharedSSealedTestSupport
           ]) {
@@ -598,11 +597,10 @@ void main() async {
             'When the code is generated\n'
             'Then the `@Deprecated` decorator is copied to modddel related code sections\n',
             () {
-          for (final testSupport in <
-              TestSupportBase<
-                  SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
-                  SampleParamsBase,
-                  NoSampleOptions>>[
+          for (final testSupport in <TestSupportBase<
+              SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
+              SampleParamsBase,
+              NoSampleOptions>>[
             withGetterParametersNonSharedSSealedTestSupport,
             withGetterParametersSharedSSealedTestSupport
           ]) {
@@ -804,11 +802,10 @@ void main() async {
             'When the code is generated\n'
             'Then the `@Deprecated` decorator is copied to modddel related code sections\n',
             () {
-          for (final testSupport in <
-              TestSupportBase<
-                  SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
-                  SampleParamsBase,
-                  NoSampleOptions>>[
+          for (final testSupport in <TestSupportBase<
+              SSealedTestHelperMixin<SampleParamsBase, NoSampleOptions>,
+              SampleParamsBase,
+              NoSampleOptions>>[
             parametersNonSharedSSealedTestSupport,
             parametersSharedSSealedTestSupport
           ]) {

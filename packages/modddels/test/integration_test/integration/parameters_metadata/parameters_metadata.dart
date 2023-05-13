@@ -41,7 +41,8 @@ class ParametersSoloSVO
   factory ParametersSoloSVO({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required String param,
+    @Deprecated('old param')
+        required String param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -71,7 +72,8 @@ class ParametersSoloMVO
   factory ParametersSoloMVO({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required String param,
+    @Deprecated('old param')
+        required String param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -104,7 +106,8 @@ class ParametersSoloSE
   factory ParametersSoloSE({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required MyModddel param,
+    @Deprecated('old param')
+        required MyModddel param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -137,7 +140,8 @@ class ParametersSoloIE
   factory ParametersSoloIE({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required List<MyModddel> param,
+    @Deprecated('old param')
+        required List<MyModddel> param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -170,7 +174,8 @@ class ParametersSoloI2E
   factory ParametersSoloI2E({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required Map<MyModddel, MyModddel> param,
+    @Deprecated('old param')
+        required Map<MyModddel, MyModddel> param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -330,7 +335,8 @@ class ParametersNonSharedSSealedSVO extends SingleValueObject<
   factory ParametersNonSharedSSealedSVO.namedParametersNonSharedSSealedSVO({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required String param,
+    @Deprecated('old param')
+        required String param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -361,7 +367,8 @@ class ParametersNonSharedSSealedMVO extends MultiValueObject<
   factory ParametersNonSharedSSealedMVO.namedParametersNonSharedSSealedMVO({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required String param,
+    @Deprecated('old param')
+        required String param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -395,7 +402,8 @@ class ParametersNonSharedSSealedSE extends SimpleEntity<
   factory ParametersNonSharedSSealedSE.namedParametersNonSharedSSealedSE({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required MyModddel param,
+    @Deprecated('old param')
+        required MyModddel param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -429,7 +437,8 @@ class ParametersNonSharedSSealedIE extends ListEntity<
   factory ParametersNonSharedSSealedIE.namedParametersNonSharedSSealedIE({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required List<MyModddel> param,
+    @Deprecated('old param')
+        required List<MyModddel> param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -463,7 +472,8 @@ class ParametersNonSharedSSealedI2E extends MapEntity<
   factory ParametersNonSharedSSealedI2E.namedParametersNonSharedSSealedI2E({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required Map<MyModddel, MyModddel> param,
+    @Deprecated('old param')
+        required Map<MyModddel, MyModddel> param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -499,7 +509,8 @@ class ParametersSharedSSealedSVO extends SingleValueObject<
   factory ParametersSharedSSealedSVO.namedParametersSharedSSealedSVO({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required String param,
+    @Deprecated('old param')
+        required String param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -532,7 +543,8 @@ class ParametersSharedSSealedMVO extends MultiValueObject<
   factory ParametersSharedSSealedMVO.namedParametersSharedSSealedMVO({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required String param,
+    @Deprecated('old param')
+        required String param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -568,7 +580,8 @@ class ParametersSharedSSealedSE extends SimpleEntity<
   factory ParametersSharedSSealedSE.namedParametersSharedSSealedSE({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required MyModddel param,
+    @Deprecated('old param')
+        required MyModddel param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -604,7 +617,8 @@ class ParametersSharedSSealedIE extends ListEntity<
   factory ParametersSharedSSealedIE.namedParametersSharedSSealedIE({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required List<MyModddel> param,
+    @Deprecated('old param')
+        required List<MyModddel> param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
@@ -640,7 +654,8 @@ class ParametersSharedSSealedI2E extends MapEntity<
   factory ParametersSharedSSealedI2E.namedParametersSharedSSealedI2E({
     /// The very long multiline comment
     /// for member parameter
-    @Deprecated('old param') required Map<MyModddel, MyModddel> param,
+    @Deprecated('old param')
+        required Map<MyModddel, MyModddel> param,
 
     /// The comment for a dependency parameter
     @Deprecated('old dependency')
