@@ -61,6 +61,6 @@ For those who want to dive deeper into the source code, you can refer to the [in
 
 Your support matters ! Help me continue working on my projects by [buying me a coffee](https://www.buymeacoffee.com/codingsoot). Thank you for your contribution !
 
-<a href="https://www.buymeacoffee.com/codingsoot" target="_blank"><img src="https://raw.githubusercontent.com/CodingSoot/modddels/master/resources/images/buymeacoffee.svg" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+<a href="https://www.buymeacoffee.com/codingsoot" target="_blank"><img src="https://raw.githubusercontent.com/CodingSoot/modddels/master/resources/images/buymeacoffee.png" alt="Buy Me A Coffee" style="height: 42px !important;width: 171px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ![sponsors](https://raw.githubusercontent.com/CodingSoot/modddels/master/resources/images/Sponsors%20list.png)
