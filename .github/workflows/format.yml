@@ -1,0 +1,38 @@
+name: Format
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    # Everyday at 8AM
+    - cron: "0 8 * * *"
+
+jobs:
+  check_format:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+            - packages/modddels
+            - packages/modddels_annotation_internal
+            - packages/modddels_annotation_fpdart
+            - packages/modddels_annotation_dartz
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          cache: true
+
+      # We exclude the example folder from the CI
+      - name: Removing example folder
+        run: rm -rf example
+        working-directory: ${{ matrix.package }}
+
+      - name: Check format
+        run: dart format --set-exit-if-changed .
+        working-directory: ${{ matrix.package }}
