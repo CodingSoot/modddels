@@ -84,10 +84,16 @@ jobs:
 
       - name: Switch to modddels_annotation_dartz
         run: |
-          find test/integration_test -name '*.dart' -exec \
-          sed -i 's|import \'package:modddels_annotation_fpdart/modddels_annotation_fpdart.dart\'|import \'package:modddels_annotation_dartz/modddels_annotation_dartz.dart\'|g' {} \;
-        working-directory: packages/modddels
-
+          find . -name '*.dart' -exec \
+          sed -i "s|import 'package:modddels_annotation_fpdart/modddels_annotation_fpdart.dart'|import 'package:modddels_annotation_dartz/modddels_annotation_dartz.dart'|g" {} \;
+          find . -name '*.dart' -exec \
+          sed -i 's|import "package:modddels_annotation_fpdart/modddels_annotation_fpdart.dart"|import "package:modddels_annotation_dartz/modddels_annotation_dartz.dart"|g' {} \;
+          if grep -r -q "package:modddels_annotation_fpdart/modddels_annotation_fpdart.dart" .; then
+            echo "Error: Found modddels_annotation_fpdart import after switch to modddels_annotation_dartz"
+            exit 1
+          fi
+        working-directory: packages/modddels/test/integration_test
+      
       - name: Generate (with modddels_annotation_dartz)
         run: |
           flutter pub run build_runner build --delete-conflicting-outputs
