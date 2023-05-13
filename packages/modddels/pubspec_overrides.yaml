@@ -1,0 +1,4 @@
+# See https://dart.dev/tools/pub/dependencies#dependency-overrides
+dependency_overrides:
+  modddels_annotation_internal:
+    path: ../modddels_annotation_internal
