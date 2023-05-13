@@ -40,7 +40,7 @@ You will then need to validate the `name`, `age` and `email` in various parts of
 The **_Modddels_** package offers a way to validate your models and deal with its different states (valid, invalid...) in a _type-safe_ and _compile-safe_ way.
 
 - 🔎 **Self-Validation :** Your models are validated upon creation. This way, you'll never deal with non-validated models.
-- 🧊 **Sealed class :** Your model is a sealed class, which union cases are the different states it can be (valid, invalid...). _For example, `Student` would be a sealed class with union-cases `ValidStudent` and `InvalidStudent`._
+- 🧊 **Sealed class :** Your model is a sealed class (compatible with previous versions of Dart) which has union-cases for the different states it can be in (valid, invalid...). _For example, `Student` would be a sealed class with union-cases `ValidStudent` and `InvalidStudent`._
 - 🚨 **Failures handling :** Your model, when invalid, holds the responsible failure(s), which you can access anytime anywhere.
 - 🔒 **Value Equality and Immutability :** All models are immutable and override `operator ==` and `hashCode` for data equality.
 - 🧪 **Unit-testing :** Easily test your models and the validation logic.
