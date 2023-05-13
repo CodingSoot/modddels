@@ -26,6 +26,14 @@ class StringTypeVisitor extends BaseStringTypeVisitor {
       StringTypeVisitor(originLibrary, expandTypeAliases: expandTypeAliases);
 
   @override
+  String visitInvalidType(InvalidType type) {
+    if (type.isTypeAlias) {
+      return visitTypeAlias(type);
+    }
+    return super.visitInvalidType(type);
+  }
+
+  @override
   String visitDynamicType(DynamicType type) {
     if (type.isTypeAlias) {
       return visitTypeAlias(type);
@@ -75,7 +83,7 @@ class StringTypeVisitor extends BaseStringTypeVisitor {
 
   @override
   String visitRecordType(RecordType type) {
-    // TODO: implement Record types once they are fully supported.
+    // TODO: implement Record types
     throw UnimplementedError('Record types are not implemented yet');
   }
 

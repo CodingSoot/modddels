@@ -20,6 +20,22 @@ abstract class BaseStringTypeVisitor extends TypeVisitor<String> {
   ///
   BaseStringTypeVisitor newInstance();
 
+  /// TODO : Analyzer 5.12.0 changelog states :
+  ///
+  /// > Added [InvalidType], used when a named type cannot be resolved, or a
+  /// > property cannot be resolved, etc. Previously [DynamicType] was used. In
+  /// > the future [DynamicType] will be used only when specified explicitly, or
+  /// > a property is resolved against a dynamic target. The clients should
+  /// > prepare by checking also for [InvalidType] in addition to [DynamicType].
+  ///
+  /// For now, we will continue handling [InvalidType] and [DynamicType] as the
+  /// same until the future changes are made.
+  ///
+  @override
+  String visitInvalidType(InvalidType type) {
+    return 'dynamic';
+  }
+
   @override
   String visitDynamicType(DynamicType type) {
     return 'dynamic';
@@ -153,7 +169,19 @@ class DartTypeStringBuilder {
     }
 
     if (skipAllDynamicArguments) {
-      if (typeArguments.every((t) => t.isDynamic)) {
+      // TODO : Analyzer 5.12.0 changelog states :
+      //
+      // > Added [InvalidType], used when a named type cannot be resolved, or a
+      // > property cannot be resolved, etc. Previously [DynamicType] was used.
+      // > In the future [DynamicType] will be used only when specified
+      // > explicitly, or a property is resolved against a dynamic target. The
+      // > clients should prepare by checking also for [InvalidType] in addition
+      // > to [DynamicType].
+      //
+      // For now, we will continue handling [InvalidType] and [DynamicType] as
+      // the same until the future changes are made.
+      //
+      if (typeArguments.every((t) => t is DynamicType || t is InvalidType)) {
         return;
       }
     }
