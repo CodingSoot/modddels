@@ -1,7 +1,7 @@
 name: modddels
 description: Generate robust, self-validated models with compile-safe states,
   seamless failure handling and easy unit-testing.
-version: 0.1.2
+version: 0.1.3
 homepage: https://www.modddels.dev
 repository: https://github.com/codingSoot/modddels
 funding:
