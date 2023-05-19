@@ -1175,7 +1175,7 @@ class InexistantValidationReferenceEntity4 extends MapEntity {
   factory InexistantValidationReferenceEntity4.named(
     @NullFailure('size', SizeFailure(), maskNb: 1)
     @NullFailure('validation3', SizeFailure(), maskNb: 2)
-        Map<AClass?, AClass?> param,
+    Map<AClass?, AClass?> param,
   ) =>
       InexistantValidationReferenceEntity4._();
 }
@@ -1232,7 +1232,7 @@ class ContentValidationReferenceEntity3 extends MapEntity {
   factory ContentValidationReferenceEntity3(
     @NullFailure('size', SizeFailure(), maskNb: 1)
     @NullFailure('content', AFailure(), maskNb: 2)
-        Map<AClass?, AClass?> param,
+    Map<AClass?, AClass?> param,
   ) =>
       ContentValidationReferenceEntity3._();
 }

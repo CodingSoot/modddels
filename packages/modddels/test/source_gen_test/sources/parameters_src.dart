@@ -363,7 +363,7 @@ class DifferentKindsValueObject2 extends MultiValueObject {
   factory DifferentKindsValueObject2({
     @dependencyParam
     @NullFailure('length', LengthFailure())
-        required AClass param,
+    required AClass param,
   }) =>
       DifferentKindsValueObject2._();
 }
@@ -445,7 +445,7 @@ class DifferentKindsIterables1 extends ListEntity {
   factory DifferentKindsIterables1({
     @NullFailure('length', LengthFailure())
     @dependencyParam
-        required AClass param,
+    required AClass param,
   }) =>
       DifferentKindsIterables1._();
 }
@@ -464,7 +464,7 @@ class DifferentKindsIterables2 extends MapEntity {
     @dependencyParam
     @withGetter
     @NullFailure('length', LengthFailure())
-        required AClass? param,
+    required AClass? param,
   }) =>
       DifferentKindsIterables2._();
 }
@@ -1256,7 +1256,7 @@ class InvalidAndNullFailureAnnotations1 extends SimpleEntity {
   factory InvalidAndNullFailureAnnotations1(
           @invalidParam
           @NullFailure('length', LengthFailure())
-              AClass? param) =>
+          AClass? param) =>
       InvalidAndNullFailureAnnotations1._();
 }
 
@@ -1402,7 +1402,7 @@ class TooManyNullFailuresSingleValueObject1 extends SingleValueObject {
   factory TooManyNullFailuresSingleValueObject1({
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AnotherFailure())
-        required AClass param,
+    required AClass param,
   }) =>
       TooManyNullFailuresSingleValueObject1._();
 }
@@ -1421,7 +1421,7 @@ class TooManyNullFailuresSingleValueObject2 extends SingleValueObject {
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AnotherFailure())
     @NullFailure('validation3', LengthFailure())
-        required AClass param,
+    required AClass param,
   }) =>
       TooManyNullFailuresSingleValueObject2._();
 }
@@ -1439,7 +1439,7 @@ class TooManyNullFailuresMultiValueObject1 extends MultiValueObject {
   factory TooManyNullFailuresMultiValueObject1.named(
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AFailure())
-        AClass param,
+    AClass param,
   ) =>
       TooManyNullFailuresMultiValueObject1._();
 }
@@ -1458,7 +1458,7 @@ class TooManyNullFailuresMultiValueObject2 extends MultiValueObject {
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AFailure())
     @NullFailure('validation3', AnotherFailure())
-        AClass param,
+    AClass param,
   ) =>
       TooManyNullFailuresMultiValueObject2._();
 }
@@ -1476,7 +1476,7 @@ class TooManyNullFailuresSimpleEntity1 extends SimpleEntity {
   factory TooManyNullFailuresSimpleEntity1.named({
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AFailure())
-        required AClass param1,
+    required AClass param1,
     AClass? param2,
   }) =>
       TooManyNullFailuresSimpleEntity1._();
@@ -1496,7 +1496,7 @@ class TooManyNullFailuresSimpleEntity2 extends SimpleEntity {
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AnotherFailure())
     @NullFailure('validation3', LengthFailure())
-        AClass param,
+    AClass param,
   ) =>
       TooManyNullFailuresSimpleEntity2._();
 }
@@ -1514,7 +1514,7 @@ class TooManyNullFailuresIterableEntity1 extends ListEntity {
   factory TooManyNullFailuresIterableEntity1(
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AFailure())
-        List<AClass> param,
+    List<AClass> param,
   ) =>
       TooManyNullFailuresIterableEntity1._();
 }
@@ -1533,7 +1533,7 @@ class TooManyNullFailuresIterableEntity2 extends ListEntity {
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AnotherFailure())
     @NullFailure('validation3', LengthFailure())
-        List<AClass> param,
+    List<AClass> param,
   ) =>
       TooManyNullFailuresIterableEntity2._();
 }
@@ -1552,7 +1552,7 @@ class TooManyNullFailuresIterable2Entity1 extends MapEntity {
     @NullFailure('validation1', AFailure())
     @NullFailure('validation2', AFailure(), maskNb: 1)
     @NullFailure('validation3', AFailure(), maskNb: 2)
-        required Map<AClass, AClass?> param,
+    required Map<AClass, AClass?> param,
   }) =>
       TooManyNullFailuresIterable2Entity1._();
 }
@@ -1572,7 +1572,7 @@ class TooManyNullFailuresIterable2Entity2 extends MapEntity {
     @NullFailure('validation2', AFailure())
     @NullFailure('validation3', AnotherFailure())
     @NullFailure('validation4', LengthFailure())
-        required Map<AClass?, AClass> param,
+    required Map<AClass?, AClass> param,
   }) =>
       TooManyNullFailuresIterable2Entity2._();
 }
@@ -1655,7 +1655,7 @@ class MaskNbInIterableEntity2 extends ListEntity {
 
   factory MaskNbInIterableEntity2.named({
     @NullFailure('validation1', AFailure(), maskNb: 2)
-        required List<AClass?> param,
+    required List<AClass?> param,
   }) =>
       MaskNbInIterableEntity2._();
 }
@@ -1691,7 +1691,7 @@ class NoMaskNbInIterable2Entity2 extends MapEntity {
   factory NoMaskNbInIterable2Entity2(
     @NullFailure('validation1', AFailure(), maskNb: 2)
     @NullFailure('validation2', AFailure())
-        Map<AClass, AClass> param,
+    Map<AClass, AClass> param,
   ) =>
       NoMaskNbInIterable2Entity2._();
 }
@@ -1711,7 +1711,7 @@ class SameMaskNb1 extends MapEntity {
   factory SameMaskNb1(
     @NullFailure('validation1', AFailure(), maskNb: 1)
     @NullFailure('validation2', AFailure(), maskNb: 1)
-        Map<AClass?, AClass?> param,
+    Map<AClass?, AClass?> param,
   ) =>
       SameMaskNb1._();
 }
@@ -1729,7 +1729,7 @@ class SameMaskNb2 extends MapEntity {
   factory SameMaskNb2.named({
     @NullFailure('validation1', AFailure(), maskNb: 2)
     @NullFailure('validation2', AFailure(), maskNb: 2)
-        required Map<AClass, AClass> param,
+    required Map<AClass, AClass> param,
   }) =>
       SameMaskNb2._();
 }
@@ -1747,7 +1747,7 @@ class IncorrectMaskNb1 extends MapEntity {
   factory IncorrectMaskNb1(
     @NullFailure('validation1', AFailure(), maskNb: 3)
     @NullFailure('validation2', AFailure(), maskNb: 5)
-        Map<AClass?, AClass?> param,
+    Map<AClass?, AClass?> param,
   ) =>
       IncorrectMaskNb1._();
 }
@@ -1765,7 +1765,7 @@ class IncorrectMaskNb2 extends MapEntity {
   factory IncorrectMaskNb2.named(
     @NullFailure('validation1', AFailure(), maskNb: 1)
     @NullFailure('validation2', AFailure(), maskNb: 0)
-        Map<AClass?, AClass?> param,
+    Map<AClass?, AClass?> param,
   ) =>
       IncorrectMaskNb2._();
 }
@@ -1850,7 +1850,7 @@ class NonNullableNullFailureIterable2Entity1 extends MapEntity {
 
   factory NonNullableNullFailureIterable2Entity1.named(
     @NullFailure('validation1', AFailure(), maskNb: 1)
-        Map<AClass, AClass?> param,
+    Map<AClass, AClass?> param,
   ) =>
       NonNullableNullFailureIterable2Entity1._();
 }
@@ -1868,7 +1868,7 @@ class NonNullableNullFailureIterable2Entity2 extends MapEntity {
 
   factory NonNullableNullFailureIterable2Entity2({
     @NullFailure('validation1', AFailure(), maskNb: 2)
-        required Map<AClass?, AClass> param,
+    required Map<AClass?, AClass> param,
   }) =>
       NonNullableNullFailureIterable2Entity2._();
 }
@@ -1886,7 +1886,7 @@ class NonNullableNullFailureIterable2Entity3 extends MapEntity {
 
   factory NonNullableNullFailureIterable2Entity3({
     @NullFailure('validation1', AFailure(), maskNb: 2)
-        required Map<AClass, AClass> param,
+    required Map<AClass, AClass> param,
   }) =>
       NonNullableNullFailureIterable2Entity3._();
 }
@@ -1905,7 +1905,7 @@ class NonNullableNullFailureIterable2Entity4 extends MapEntity {
   factory NonNullableNullFailureIterable2Entity4({
     @NullFailure('validation1', AFailure(), maskNb: 1)
     @NullFailure('validation2', AFailure(), maskNb: 2)
-        required Map<AClass?, AClass> param,
+    required Map<AClass?, AClass> param,
   }) =>
       NonNullableNullFailureIterable2Entity4._();
 }
@@ -1924,7 +1924,7 @@ class NonNullableNullFailureIterable2Entity5 extends MapEntity {
   factory NonNullableNullFailureIterable2Entity5({
     @NullFailure('validation1', AFailure(), maskNb: 1)
     @NullFailure('validation2', AFailure(), maskNb: 2)
-        required Map<AClass, AClass> param,
+    required Map<AClass, AClass> param,
   }) =>
       NonNullableNullFailureIterable2Entity5._();
 }
