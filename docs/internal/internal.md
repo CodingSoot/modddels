@@ -23,7 +23,7 @@
 
     Example : `map`, `maybeMap`, `mapInvalid`...
 
-  - **Modddel pattern matching :** Pattern matching between the different case-modddels of a ssealed class.
+  - **Modddel pattern matching :** Also called "Case-modddels pattern matching". Pattern matching between the different case-modddels of a ssealed class.
 
     Example : `mapWeather`, `maybeMapWeather`...
 

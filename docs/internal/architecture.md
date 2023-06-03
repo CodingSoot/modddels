@@ -1502,7 +1502,7 @@ TResult maybeMap<TResult extends Object?>(
 
 ## Modddel Pattern Matching
 
-The modddel pattern matching allow you to do pattern matching between the different case-modddels of a ssealed class.
+The modddel pattern matching (also called "case-modddels pattern matching") allow you to do pattern matching between the different case-modddels of a ssealed class.
 
 | Super-sealed class        | Case-modddels                             |
 | ------------------------- | ----------------------------------------- |
