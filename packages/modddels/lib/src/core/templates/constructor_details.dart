@@ -145,8 +145,9 @@ void _assertValidNormalConstructorUsage(
 
   if (privateConstructor == null) {
     throw InvalidGenerationSourceError(
-      'Classes decorated with @Modddel should have a single non-factory '
-      'constructor, without parameters, and named ${annotatedClass.name}._()',
+      'The class "${annotatedClass.name}" is decorated with @Modddel and thus '
+      'should have a single non-factory constructor, without parameters, '
+      'and named ${annotatedClass.name}._()',
       element: annotatedClass,
     );
   }

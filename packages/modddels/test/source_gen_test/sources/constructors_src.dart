@@ -8,16 +8,18 @@ import '_common.dart';
 /* -------------------------------------------------------------------------- */
 
 @ShouldThrow(
-  'Classes decorated with @Modddel should have a single non-factory '
-  'constructor, without parameters, and named NoPrivateConstructor._()',
+  'The class "NoPrivateConstructor" is decorated with @Modddel and thus '
+  'should have a single non-factory constructor, without parameters, '
+  'and named NoPrivateConstructor._()',
   element: null,
 )
 @Modddel(validationSteps: noVSteps)
 class NoPrivateConstructor extends SimpleEntity {}
 
 @ShouldThrow(
-  'Classes decorated with @Modddel should have a single non-factory '
-  'constructor, without parameters, and named DefaultConstructor._()',
+  'The class "DefaultConstructor" is decorated with @Modddel and thus '
+  'should have a single non-factory constructor, without parameters, '
+  'and named DefaultConstructor._()',
   element: null,
 )
 @Modddel(validationSteps: noVSteps)
@@ -26,8 +28,9 @@ class DefaultConstructor extends SimpleEntity {
 }
 
 @ShouldThrow(
-  'Classes decorated with @Modddel should have a single non-factory '
-  'constructor, without parameters, and named NamedConstructor._()',
+  'The class "NamedConstructor" is decorated with @Modddel and thus '
+  'should have a single non-factory constructor, without parameters, '
+  'and named NamedConstructor._()',
   element: null,
 )
 @Modddel(validationSteps: noVSteps)
@@ -36,8 +39,9 @@ class NamedConstructor extends SimpleEntity {
 }
 
 @ShouldThrow(
-  'Classes decorated with @Modddel should have a single non-factory '
-  'constructor, without parameters, and named PrivateConstructorWithParams._()',
+  'The class "PrivateConstructorWithParams" is decorated with @Modddel and thus '
+  'should have a single non-factory constructor, without parameters, '
+  'and named PrivateConstructorWithParams._()',
   element: null,
 )
 @Modddel(validationSteps: noVSteps)
