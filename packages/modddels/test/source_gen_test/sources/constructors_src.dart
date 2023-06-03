@@ -50,6 +50,158 @@ class PrivateConstructorWithParams extends SimpleEntity {
 }
 
 /* -------------------------------------------------------------------------- */
+/*       Can't have a non-factory constructor other than the private one      */
+/* -------------------------------------------------------------------------- */
+
+@ShouldThrow(
+  'The class "ExtraDefaultConstructor1" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "ExtraDefaultConstructor1._()"',
+  element: '',
+)
+@Modddel(validationSteps: noVSteps)
+class ExtraDefaultConstructor1 extends SimpleEntity {
+  ExtraDefaultConstructor1();
+
+  // ignore: unused_element
+  ExtraDefaultConstructor1._();
+}
+
+@ShouldThrow(
+  'The class "ExtraDefaultConstructor2" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "ExtraDefaultConstructor2._()"',
+  element: '',
+)
+@Modddel(validationSteps: noVSteps)
+class ExtraDefaultConstructor2 extends SimpleEntity {
+  // ignore: unused_element
+  ExtraDefaultConstructor2._();
+
+  ExtraDefaultConstructor2();
+}
+
+@ShouldThrow(
+  'The class "ExtraDefaultConstructorWithParams" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "ExtraDefaultConstructorWithParams._()"',
+  element: '',
+)
+@Modddel(validationSteps: noVSteps)
+class ExtraDefaultConstructorWithParams extends SimpleEntity {
+  // ignore: unused_element
+  ExtraDefaultConstructorWithParams._();
+
+  ExtraDefaultConstructorWithParams(AClass param1, {required AClass param2});
+}
+
+@ShouldThrow(
+  'The class "ExtraNamedConstructor" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "ExtraNamedConstructor._()"',
+  element: 'named',
+)
+@Modddel(validationSteps: noVSteps)
+class ExtraNamedConstructor extends SimpleEntity {
+  ExtraNamedConstructor.named();
+
+  // ignore: unused_element
+  ExtraNamedConstructor._();
+}
+
+@ShouldThrow(
+  'The class "ExtraNamedConstructorWithParams" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "ExtraNamedConstructorWithParams._()"',
+  element: 'named',
+)
+@Modddel(validationSteps: noVSteps)
+class ExtraNamedConstructorWithParams extends SimpleEntity {
+  // ignore: unused_element
+  ExtraNamedConstructorWithParams._();
+
+  ExtraNamedConstructorWithParams.named({
+    required AClass param1,
+    required AClass param2,
+  });
+}
+
+@ShouldThrow(
+  'The class "ExtraPrivateNamedConstructor" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "ExtraPrivateNamedConstructor._()"',
+  element: '_named',
+)
+@Modddel(validationSteps: noVSteps)
+class ExtraPrivateNamedConstructor extends SimpleEntity {
+  // ignore: unused_element
+  ExtraPrivateNamedConstructor._();
+
+  // ignore: unused_element
+  ExtraPrivateNamedConstructor._named();
+}
+
+@ShouldThrow(
+  'The class "ExtraPrivateNamedConstructorWithParams" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "ExtraPrivateNamedConstructorWithParams._()"',
+  element: '_named',
+)
+@Modddel(validationSteps: noVSteps)
+class ExtraPrivateNamedConstructorWithParams extends SimpleEntity {
+  // ignore: unused_element
+  ExtraPrivateNamedConstructorWithParams._();
+
+  // ignore: unused_element
+  ExtraPrivateNamedConstructorWithParams._named({
+    required AClass param1,
+    required AClass param2,
+  });
+}
+
+@ShouldThrow(
+  'The class "MultipleExtraConstructors1" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "MultipleExtraConstructors1._()"',
+  element: '',
+)
+@Modddel(validationSteps: noVSteps)
+class MultipleExtraConstructors1 extends SimpleEntity {
+  // ignore: unused_element
+  MultipleExtraConstructors1._();
+
+  // ignore: unused_element
+  MultipleExtraConstructors1();
+
+  // ignore: unused_element
+  MultipleExtraConstructors1.named();
+
+  // ignore: unused_element
+  MultipleExtraConstructors1._named();
+}
+
+@ShouldThrow(
+  'The class "MultipleExtraConstructors2" is decorated with @Modddel and thus '
+  'cannot have a non-factory constructor other than the private '
+  'constructor "MultipleExtraConstructors2._()"',
+  element: 'named',
+)
+@Modddel(validationSteps: noVSteps)
+class MultipleExtraConstructors2 extends SimpleEntity {
+  // ignore: unused_element
+  MultipleExtraConstructors2.named();
+
+  // ignore: unused_element
+  MultipleExtraConstructors2();
+
+  // ignore: unused_element
+  MultipleExtraConstructors2._();
+
+  // ignore: unused_element
+  MultipleExtraConstructors2._named();
+}
+
+/* -------------------------------------------------------------------------- */
 /*                      At least one factory constructor                      */
 /* -------------------------------------------------------------------------- */
 
