@@ -137,11 +137,15 @@ void _assertValidNormalConstructorUsage(
   List<ConstructorElement> normalConstructors, {
   required ClassElement annotatedClass,
 }) {
-  final privateConstructor = normalConstructors.singleWhereOrNull(
-      (constructor) =>
-          !constructor.isFactory &&
-          constructor.name == '_' &&
-          constructor.parameters.isEmpty);
+  assert(normalConstructors.every((constructor) => !constructor.isFactory));
+
+  bool isPrivateConstructor(ConstructorElement normalConstructor) {
+    return normalConstructor.name == '_' &&
+        normalConstructor.parameters.isEmpty;
+  }
+
+  final privateConstructor =
+      normalConstructors.singleWhereOrNull(isPrivateConstructor);
 
   if (privateConstructor == null) {
     throw InvalidGenerationSourceError(
@@ -151,10 +155,25 @@ void _assertValidNormalConstructorUsage(
       element: annotatedClass,
     );
   }
+
+  final otherConstructors = normalConstructors
+      .where((constructor) => !isPrivateConstructor(constructor))
+      .toList();
+
+  if (otherConstructors.isNotEmpty) {
+    throw InvalidGenerationSourceError(
+      'The class "${annotatedClass.name}" is decorated with @Modddel and thus '
+      'cannot have a non-factory constructor other than the private '
+      'constructor "${annotatedClass.name}._()"',
+      element: otherConstructors.first,
+    );
+  }
 }
 
 void _assertValidFactoryConstructorUsage(
     List<ConstructorElement> factoryConstructors, ClassElement annotatedClass) {
+  assert(factoryConstructors.every((constructor) => constructor.isFactory));
+
   for (final constructor in factoryConstructors) {
     if (constructor.isPrivate) {
       throw InvalidGenerationSourceError(
