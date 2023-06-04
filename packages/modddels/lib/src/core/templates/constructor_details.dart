@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:meta/meta.dart';
+import 'package:modddels/src/core/templates/parameters/parameter.dart';
 import 'package:modddels/src/core/templates/parameters/parameters_template.dart';
 import 'package:modddels/src/core/utils.dart';
 import 'package:source_gen/source_gen.dart';
@@ -29,7 +30,7 @@ class ConstructorDetails {
     final parametersTemplate = await ParametersTemplate.fromParameterElements(
       buildStep: buildStep,
       originLibrary: originLibrary,
-      parameters: constructor.parameters,
+      parameterElements: constructor.parameters,
     );
 
     final constructorName = constructor.name;
@@ -53,8 +54,15 @@ class ConstructorDetails {
 
   final ConstructorElement constructorElement;
 
-  /// The parameters template of the constructor. Represents all the parameters
-  /// of the constructors as they are declared.
+  /// The parameters template of the factory constructor. Represents all the
+  /// parameters of the constructor as they are declared, with the following
+  /// changes :
+  ///
+  /// - [ExpandedParameter.showDefaultValue] is set to `false`, meaning default
+  ///   values are hidden.
+  /// - Type aliases are expanded for member parameters only.
+  /// - [ExpandedParameter.decorators] don't include the `@required` decorator
+  ///   and any annotation of the modddels package.
   ///
   final ParametersTemplate parametersTemplate;
 
