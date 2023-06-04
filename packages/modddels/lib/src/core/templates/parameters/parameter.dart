@@ -13,8 +13,8 @@ import 'package:modddels/src/core/tools/element.dart';
 ///
 abstract class Parameter {
   /// If this parameter was constructed from a [ParameterElement] using
-  /// [ExpandedParameter.fromParameterElement] or
-  /// [LocalParameter.fromParameterElement], then returns that parameterElement.
+  /// [ExpandedParameter.fromParameterElement], then returns that
+  /// parameterElement.
   ///
   /// Otherwise returns null.
   ///
@@ -475,35 +475,6 @@ class LocalParameter extends Parameter {
       res = '$res = $defaultValue';
     }
     return res;
-  }
-
-  @factory
-  static Future<LocalParameter> fromParameterElement({
-    required LibraryElement originLibrary,
-    required ParameterElement parameterElement,
-    required BuildStep buildStep,
-    required bool expandTypeAliases,
-  }) async {
-    final doc = await documentationOf(parameterElement, buildStep);
-    return LocalParameter(
-      parameterElement: parameterElement,
-      name: parameterElement.name,
-      type: parseTypeSource(
-        originLibrary,
-        parameterElement,
-        expandTypeAliases: expandTypeAliases,
-      ),
-      defaultValue: parameterElement.defaultValueCode,
-      hasRequired: parameterElement.isRequiredNamed,
-      decorators: parseDecorators(parameterElement),
-      doc: doc,
-      hasValidAnnotation: parameterElement.hasValidAnnotation,
-      hasInvalidAnnotation: parameterElement.hasInvalidAnnotation,
-      hasWithGetterAnnotation: parameterElement.hasWithGetterAnnotation,
-      hasDependencyAnnotation: parameterElement.hasDependencyAnnotation,
-      nullFailures:
-          await parameterElement.getParsedNullFailures(buildStep: buildStep),
-    );
   }
 }
 
