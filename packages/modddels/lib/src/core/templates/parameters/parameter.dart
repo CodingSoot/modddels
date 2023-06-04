@@ -13,8 +13,8 @@ import 'package:modddels/src/core/tools/element.dart';
 ///
 abstract class Parameter {
   /// If this parameter was constructed from a [ParameterElement] using
-  /// [ExpandedParameter.fromParameterElement] or
-  /// [LocalParameter.fromParameterElement], then returns that parameterElement.
+  /// [ExpandedParameter.fromParameterElement], then returns that
+  /// parameterElement.
   ///
   /// Otherwise returns null.
   ///
@@ -335,13 +335,25 @@ class ExpandedParameter extends Parameter {
     return res;
   }
 
+  /// Creates an [ExpandedParameter] that represents the given
+  /// [parameterElement].
+  ///
+  /// These changes are made :
+  ///
+  /// - If [showDefaultValue] is true, default values are shown, otherwise they
+  ///   are hidden. See [ExpandedParameter.showDefaultValue].
+  /// - If [expandTypeAliases] is true, and the parameter's type is/contains a
+  ///   type alias, it is fully expanded (including any aliased type args).
+  /// - [ExpandedParameter.decorators] don't include the `@required` decorator
+  ///   and any annotation of the modddels package.
+  ///
   @factory
   static Future<ExpandedParameter> fromParameterElement({
     required LibraryElement originLibrary,
     required ParameterElement parameterElement,
     required BuildStep buildStep,
     required bool expandTypeAliases,
-    bool showDefaultValue = false,
+    required bool showDefaultValue,
   }) async {
     final doc = await documentationOf(parameterElement, buildStep);
     return ExpandedParameter(
@@ -476,38 +488,10 @@ class LocalParameter extends Parameter {
     }
     return res;
   }
-
-  @factory
-  static Future<LocalParameter> fromParameterElement({
-    required LibraryElement originLibrary,
-    required ParameterElement parameterElement,
-    required BuildStep buildStep,
-    required bool expandTypeAliases,
-  }) async {
-    final doc = await documentationOf(parameterElement, buildStep);
-    return LocalParameter(
-      parameterElement: parameterElement,
-      name: parameterElement.name,
-      type: parseTypeSource(
-        originLibrary,
-        parameterElement,
-        expandTypeAliases: expandTypeAliases,
-      ),
-      defaultValue: parameterElement.defaultValueCode,
-      hasRequired: parameterElement.isRequiredNamed,
-      decorators: parseDecorators(parameterElement),
-      doc: doc,
-      hasValidAnnotation: parameterElement.hasValidAnnotation,
-      hasInvalidAnnotation: parameterElement.hasInvalidAnnotation,
-      hasWithGetterAnnotation: parameterElement.hasWithGetterAnnotation,
-      hasDependencyAnnotation: parameterElement.hasDependencyAnnotation,
-      nullFailures:
-          await parameterElement.getParsedNullFailures(buildStep: buildStep),
-    );
-  }
 }
 
-/// Returns the decorators except `@required` and all modddels annotations.
+/// Returns the decorators except `@required` and any annotation of the modddels
+/// package.
 ///
 List<String> parseDecorators(ParameterElement parameterElement) {
   return parameterElement.metadata

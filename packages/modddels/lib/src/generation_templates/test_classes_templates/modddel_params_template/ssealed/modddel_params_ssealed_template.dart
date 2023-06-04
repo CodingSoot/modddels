@@ -108,8 +108,9 @@ class ModddelParamsSSealedTemplate extends SSealedGenerationTemplate {
         ? _sSealedModddelParamsClassName
         : '$_sSealedModddelParamsClassName.${modddelConstructor.name}';
 
-    final factoryParams =
-        modddelInfo.modddelParametersInfo.constructorParametersTemplate;
+    final factoryParams = modddelInfo
+        .modddelParametersInfo.constructorParametersTemplate
+        .asExpanded(showDefaultValue: true);
 
     final modddelParamsClassName =
         modddelInfo.modddelClassInfo.classIdentifiers.modddelParamsClassName;

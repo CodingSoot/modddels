@@ -26,8 +26,9 @@ typedef ModddelParametersInfoConstructor<MPI extends ModddelParametersInfo>
 /// [ModddelParametersInfoConstructor].
 ///
 abstract class ModddelParametersInfo {
-  /// The parameters template of the factory constructor of the modddel, without
-  /// any changes.
+  /// The parameters template of the factory constructor of the modddel.
+  /// Represents all the parameters of the constructor as they are declared,
+  /// with the changes mentioned in [ConstructorDetails.parametersTemplate].
   ///
   /// This is the same as [ModddelClassInfo.constructor]'s parametersTemplate.
   ///

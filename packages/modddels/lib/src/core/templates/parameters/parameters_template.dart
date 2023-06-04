@@ -22,12 +22,15 @@ enum Optionality {
 /// The [ParametersTemplate] is a template that represents the parameters of a
 /// constructor or a function.
 ///
-/// The parameters can either be :
+/// Generally speaking, you want the parameters to either be :
+///
 /// - (A) All [ExpandedParameter]s with [ExpandedParameter.showDefaultValue] set
-///   to false. **This is the default.**
+///   to false. This can be achieved using [asExpanded] with `showDefaultValue`
+///   set to `false`.
 /// - (B) All [ExpandedParameter]s with [ExpandedParameter.showDefaultValue] set
-///   to true.
-/// - (C) All [LocalParameter]s.
+///   to true. This can be achieved using [asExpanded] with `showDefaultValue`
+///   set to `true`.
+/// - (C) All [LocalParameter]s. This can be achieved using [asLocal].
 ///
 /// Example :
 ///
@@ -51,14 +54,20 @@ class ParametersTemplate {
     this.namedParameters = const [],
   });
 
-  /// By default : The Parameters template is made of [ExpandedParameter]s,
-  /// with [ExpandedParameter.showDefaultValue] set to false.
+  /// Creates a [ParametersTemplate] from the list of [parameterElements]. The
+  /// resulting [ParametersTemplate] is made of [ExpandedParameter]s, with :
+  ///
+  /// - [ExpandedParameter.showDefaultValue] is set to `false`, meaning default
+  ///   values are hidden.
+  /// - Type aliases are expanded for member parameters only.
+  /// - [ExpandedParameter.decorators] don't include the `@required` decorator
+  ///   and any annotation of the modddels package.
   ///
   @factory
   static Future<ParametersTemplate> fromParameterElements({
     required LibraryElement originLibrary,
     required BuildStep buildStep,
-    required List<ParameterElement> parameters,
+    required List<ParameterElement> parameterElements,
   }) async {
     Future<Parameter> asParameter(ParameterElement param) async {
       // Unless the parameter is a dependency param, we need to expand the type
@@ -76,13 +85,13 @@ class ParametersTemplate {
 
     return ParametersTemplate(
       requiredPositionalParameters: await Future.wait(
-        parameters.where((p) => p.isRequiredPositional).map(asParameter),
+        parameterElements.where((p) => p.isRequiredPositional).map(asParameter),
       ),
       optionalPositionalParameters: await Future.wait(
-        parameters.where((p) => p.isOptionalPositional).map(asParameter),
+        parameterElements.where((p) => p.isOptionalPositional).map(asParameter),
       ),
       namedParameters: await Future.wait(
-        parameters.where((p) => p.isNamed).map(asParameter),
+        parameterElements.where((p) => p.isNamed).map(asParameter),
       ),
     );
   }
