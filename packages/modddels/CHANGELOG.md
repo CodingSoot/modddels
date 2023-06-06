@@ -1,3 +1,7 @@
+## 0.1.5
+
+Bump fpdart version to 0.6.0
+
 ## 0.1.4
 
 - **Breaking :** Disallow adding non-factory constructors other than the private constructor to a class decorated with `@Modddel`. (See [#6](https://github.com/CodingSoot/modddels/issues/6))
