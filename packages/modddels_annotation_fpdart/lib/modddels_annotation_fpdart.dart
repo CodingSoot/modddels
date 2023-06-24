@@ -1,7 +1,33 @@
 library modddels_annotation_fpdart;
 
 export 'package:modddels_annotation_internal/modddels_annotation_internal.dart'
-    hide ellipsize;
+    show
+        Modddel,
+        validParam,
+        invalidParam,
+        withGetter,
+        validWithGetter,
+        invalidWithGetter,
+        NullFailure,
+        dependencyParam,
+        TypeTemplate,
+        SharedProp,
+        contentValidation,
+        Validation,
+        FailureType,
+        ValidationStep,
+        UnreachableError,
+        Failure,
+        ValueFailure,
+        EntityFailure,
+        ContentFailure,
+        ModddelInvalidMember,
+        ValidModddel,
+        ValidValueObject,
+        ValidEntity,
+        InvalidModddel,
+        InvalidValueObject,
+        InvalidEntity;
 
 export 'package:fpdart/fpdart.dart';
 export 'package:test/test.dart';
