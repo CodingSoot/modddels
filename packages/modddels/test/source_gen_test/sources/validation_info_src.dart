@@ -142,7 +142,7 @@ class NoValidationEntity3 extends MapEntity {
 /*                    The provided validations are correct                    */
 /* -------------------------------------------------------------------------- */
 
-/* ------- The failureType must be provided (must not equal 'Failure') ------ */
+/* ------ The failure type must be provided (must not equal 'Failure') ------ */
 
 @ShouldThrow(
   'UnresolvedValidationException: The failure type must be provided and must '
@@ -236,7 +236,7 @@ class NoProvidedFailureTypeEntity3 extends MapEntity {
       NoProvidedFailureTypeEntity3._();
 }
 
-/* ---------------- The failureType can't be dynamic or empty --------------- */
+/* --------------- The failure type can't be dynamic or empty --------------- */
 
 @ShouldThrow(
   'UnresolvedValidationException: The failure type must be provided and must '
@@ -331,7 +331,7 @@ class EmptyFailureTypeEntity2 extends MapEntity {
       EmptyFailureTypeEntity2._();
 }
 
-/* ------ The failureType can't equal 'ValueFailure' or 'EntityFailure' ----- */
+/* ----- The failure type can't equal 'ValueFailure' or 'EntityFailure' ----- */
 
 @ShouldThrow(
   'UnresolvedValidationException: The failure type can\'t be equal to the base '
@@ -427,10 +427,10 @@ class EntityFailureAsFailureTypeEntity2 extends MapEntity {
       EntityFailureAsFailureTypeEntity2._();
 }
 
-/* -------------------- The failureType can't be nullable ------------------- */
+/* ------------------- The failure type can't be nullable ------------------- */
 
 @ShouldThrow(
-  'UnresolvedValidationException: The failureType must not be nullable.\n'
+  'UnresolvedValidationException: The failure type must not be nullable.\n'
   'Failed Validation : "validation1"\n',
   element: null,
 )
@@ -445,7 +445,7 @@ class NullableFailureTypeValueObject1 extends SingleValueObject {
 }
 
 @ShouldThrow(
-  'UnresolvedValidationException: The failureType must not be nullable.\n'
+  'UnresolvedValidationException: The failure type must not be nullable.\n'
   'Failed Validation : "validation2"\n',
   element: null,
 )
@@ -462,6 +462,11 @@ class NullableFailureTypeValueObject2 extends MultiValueObject {
       NullableFailureTypeValueObject2._();
 }
 
+@ShouldThrow(
+  'UnresolvedValidationException: The failure type must not be nullable.\n'
+  'Failed Validation : "validation2"\n',
+  element: null,
+)
 @Modddel(validationSteps: [
   ValidationStep([
     contentValidation,
@@ -476,7 +481,7 @@ class NullableFailureTypeEntity1 extends SimpleEntity {
 }
 
 @ShouldThrow(
-  'UnresolvedValidationException: The failureType must not be nullable.\n'
+  'UnresolvedValidationException: The failure type must not be nullable.\n'
   'Failed Validation : "validation2"\n',
   element: null,
 )
@@ -494,7 +499,7 @@ class NullableFailureTypeEntity2 extends ListEntity {
 }
 
 @ShouldThrow(
-  'UnresolvedValidationException: The failureType must not be nullable.\n'
+  'UnresolvedValidationException: The failure type must not be nullable.\n'
   'Failed Validation : "validation2"\n',
   element: null,
 )
