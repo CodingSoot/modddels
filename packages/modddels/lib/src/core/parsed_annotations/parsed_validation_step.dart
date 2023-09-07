@@ -15,6 +15,7 @@ class ParsedValidationStep {
   factory ParsedValidationStep.fromValidationStepObject({
     required LibraryElement library,
     required DartObject validationStepObject,
+    required ClassElement annotatedClass,
   }) {
     // 1. The `name` field
     final name = validationStepObject.getField('name')!.toStringValue();
@@ -26,6 +27,7 @@ class ParsedValidationStep {
         .map((validationObject) => ParsedValidation.fromValidationObject(
               library: library,
               validationObject: validationObject,
+              annotatedClass: annotatedClass,
             ))
         .toList();
 
