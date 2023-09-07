@@ -730,7 +730,7 @@ class IncorrectTypeIterableEntity2 extends ListEntity {
 class IncorrectTypeIterableEntity3 extends ListEntity {
   IncorrectTypeIterableEntity3._();
 
-  factory IncorrectTypeIterableEntity3(List param) =>
+  factory IncorrectTypeIterableEntity3(AGeneric<AClass> param) =>
       IncorrectTypeIterableEntity3._();
 }
 
@@ -757,7 +757,7 @@ class IncorrectTypeIterableEntity5 extends IterableEntity {
   IncorrectTypeIterableEntity5._();
 
   factory IncorrectTypeIterableEntity5({
-    required AGeneric2 param,
+    required Set<AClass> param,
   }) =>
       IncorrectTypeIterableEntity5._();
 }
@@ -785,7 +785,7 @@ class IncorrectTypeIterableEntity6 extends IterableEntity {
 class IncorrectTypeIterableEntity7 extends IterableEntity {
   IncorrectTypeIterableEntity7._();
 
-  factory IncorrectTypeIterableEntity7(AGeneric3 param) =>
+  factory IncorrectTypeIterableEntity7(AGeneric2 param) =>
       IncorrectTypeIterableEntity7._();
 }
 
@@ -826,7 +826,7 @@ class IncorrectTypeIterable2Entity2 extends MapEntity {
 class IncorrectTypeIterable2Entity3 extends MapEntity {
   IncorrectTypeIterable2Entity3._();
 
-  factory IncorrectTypeIterable2Entity3(Map param) =>
+  factory IncorrectTypeIterable2Entity3(List<AClass> param) =>
       IncorrectTypeIterable2Entity3._();
 }
 
@@ -854,7 +854,7 @@ class IncorrectTypeIterable2Entity5 extends Iterable2Entity {
   IncorrectTypeIterable2Entity5._();
 
   factory IncorrectTypeIterable2Entity5({
-    required AGeneric3 param,
+    required AGeneric2<AClass, AClass> param,
   }) =>
       IncorrectTypeIterable2Entity5._();
 }

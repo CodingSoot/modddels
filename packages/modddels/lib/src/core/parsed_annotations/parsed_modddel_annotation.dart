@@ -27,6 +27,7 @@ class ParsedModddelAnnotation {
             ParsedValidationStep.fromValidationStepObject(
               library: library,
               validationStepObject: validationStepObject,
+              annotatedClass: annotatedClass,
             ))
         .toList();
 

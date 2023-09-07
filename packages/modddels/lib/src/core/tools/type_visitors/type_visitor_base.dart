@@ -3,6 +3,7 @@ import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/type_visitor.dart';
 import 'package:modddels/src/core/tools/element.dart';
+import 'package:modddels/src/core/tools/type_visitors/invalid_type_exception.dart';
 
 extension DartTypeX on DartType {
   /// Whether this type is a type alias (= declared with typedef).
@@ -10,29 +11,29 @@ extension DartTypeX on DartType {
   bool get isTypeAlias => alias != null;
 }
 
+/// If [invalidTypeThrows] is true, throws an [InvalidTypeException] if an
+/// [InvalidType] is encountered. Otherwise, the [InvalidType] is considered as
+/// a [DynamicType].
+///
 abstract class BaseStringTypeVisitor extends TypeVisitor<String> {
   /// The origin library where the [DartType] is used. This is mainly used for
   /// the [DartTypeStringBuilder.writePrefix] method.
   ///
   LibraryElement get originLibrary;
 
+  /// Whether encountering an [InvalidType] throws an [InvalidTypeException], or
+  /// it is considered as a [DynamicType].
+  bool get invalidTypeThrows;
+
   /// Creates a new instance of this type visitor.
   ///
   BaseStringTypeVisitor newInstance();
 
-  /// TODO : Analyzer 5.12.0 changelog states :
-  ///
-  /// > Added [InvalidType], used when a named type cannot be resolved, or a
-  /// > property cannot be resolved, etc. Previously [DynamicType] was used. In
-  /// > the future [DynamicType] will be used only when specified explicitly, or
-  /// > a property is resolved against a dynamic target. The clients should
-  /// > prepare by checking also for [InvalidType] in addition to [DynamicType].
-  ///
-  /// For now, we will continue handling [InvalidType] and [DynamicType] as the
-  /// same until the future changes are made.
-  ///
   @override
   String visitInvalidType(InvalidType type) {
+    if (invalidTypeThrows) {
+      throw InvalidTypeException();
+    }
     return 'dynamic';
   }
 
@@ -60,10 +61,7 @@ abstract class BaseStringTypeVisitor extends TypeVisitor<String> {
 
     buffer.writePrefix(type.element);
     buffer.write(type.element.name);
-    buffer.writeTypeArguments(
-      type.typeArguments,
-      skipAllDynamicArguments: false,
-    );
+    buffer.writeTypeArguments(type.typeArguments);
     buffer.writeNullability(type.nullabilitySuffix);
 
     return buffer.toString();
@@ -153,38 +151,17 @@ class DartTypeStringBuilder {
   ///
   /// For example : '<String, Car>'
   ///
-  /// If [skipAllDynamicArguments] is true, if the typeArguments are all dynamic
-  /// then we omit writing them.
-  ///
   /// NB : A type parameter is the blueprint or placeholder for a type declared
   /// in generic. A type argument is the actual type used to parametrize
   /// the generic.
   ///
-  void writeTypeArguments(
-    List<DartType> typeArguments, {
-    required bool skipAllDynamicArguments,
-  }) {
+  void writeTypeArguments(List<DartType> typeArguments) {
     if (typeArguments.isEmpty) {
       return;
     }
 
-    if (skipAllDynamicArguments) {
-      // TODO : Analyzer 5.12.0 changelog states :
-      //
-      // > Added [InvalidType], used when a named type cannot be resolved, or a
-      // > property cannot be resolved, etc. Previously [DynamicType] was used.
-      // > In the future [DynamicType] will be used only when specified
-      // > explicitly, or a property is resolved against a dynamic target. The
-      // > clients should prepare by checking also for [InvalidType] in addition
-      // > to [DynamicType].
-      //
-      // For now, we will continue handling [InvalidType] and [DynamicType] as
-      // the same until the future changes are made.
-      //
-      if (typeArguments.every((t) => t is DynamicType || t is InvalidType)) {
-        return;
-      }
-    }
+    // TODO : We could optionally skip writing type arguments if they're all
+    // dynamic. For now we'll just write them all.
 
     write('<');
     for (var i = 0; i < typeArguments.length; i++) {

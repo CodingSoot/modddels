@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:modddels/src/core/tools/type_visitors/invalid_type_exception.dart';
 import 'package:modddels/src/core/tools/type_visitors/type_visitor_base.dart';
 import 'package:modddels/src/core/utils.dart';
 
@@ -11,19 +12,34 @@ import 'package:modddels/src/core/utils.dart';
 /// exclusively for "presenting" a type for the user (for example in an error
 /// message).
 ///
+/// If [invalidTypeThrows] is true, throws an [InvalidTypeException] if an
+/// [InvalidType] is encountered. Otherwise, the [InvalidType] is considered as
+/// a [DynamicType].
+///
 class StringTypeVisitor extends BaseStringTypeVisitor {
-  StringTypeVisitor(this.originLibrary, {required this.expandTypeAliases});
+  StringTypeVisitor(
+    this.originLibrary, {
+    required this.invalidTypeThrows,
+    required this.expandTypeAliases,
+  });
 
   @override
   final LibraryElement originLibrary;
 
-  /// If true, the will expanded all type aliases to the type they represent.
+  @override
+  final bool invalidTypeThrows;
+
+  /// If true, this visitor will expanded all type aliases to the type they
+  /// represent.
   ///
   final bool expandTypeAliases;
 
   @override
-  StringTypeVisitor newInstance() =>
-      StringTypeVisitor(originLibrary, expandTypeAliases: expandTypeAliases);
+  StringTypeVisitor newInstance() => StringTypeVisitor(
+        originLibrary,
+        invalidTypeThrows: invalidTypeThrows,
+        expandTypeAliases: expandTypeAliases,
+      );
 
   @override
   String visitInvalidType(InvalidType type) {
@@ -103,6 +119,7 @@ class StringTypeVisitor extends BaseStringTypeVisitor {
       final aliasedType = alias.element.aliasedType;
       var result = aliasedType.accept(ReplaceTypeParametersVisitor(
           originLibrary,
+          invalidTypeThrows: invalidTypeThrows,
           expandTypeAliases: expandTypeAliases,
           typeArgumentsReplacement: Map.fromIterables(
               alias.element.typeParameters, alias.typeArguments)));
@@ -120,10 +137,7 @@ class StringTypeVisitor extends BaseStringTypeVisitor {
 
     buffer.writePrefix(alias.element);
     buffer.write(alias.element.name);
-    buffer.writeTypeArguments(
-      alias.typeArguments,
-      skipAllDynamicArguments: false,
-    );
+    buffer.writeTypeArguments(alias.typeArguments);
     buffer.writeNullability(type.nullabilitySuffix);
 
     return buffer.toString();
@@ -141,17 +155,26 @@ class StringTypeVisitor extends BaseStringTypeVisitor {
 /// If the [typeArgumentsReplacement] equals `{T : int, S : String}`, then the
 /// result would be : `Map<int?, List<String>>`
 ///
+/// If [invalidTypeThrows] is true, throws an [InvalidTypeException] if an
+/// [InvalidType] is encountered. Otherwise, the [InvalidType] is considered as
+/// a [DynamicType].
+///
 class ReplaceTypeParametersVisitor extends BaseStringTypeVisitor {
   ReplaceTypeParametersVisitor(
     this.originLibrary, {
     required this.typeArgumentsReplacement,
+    required this.invalidTypeThrows,
     required this.expandTypeAliases,
   });
 
   @override
   final LibraryElement originLibrary;
 
-  /// If true, the will expanded all type aliases to the type they represent.
+  @override
+  final bool invalidTypeThrows;
+
+  /// If true, this visitor will expanded all type aliases to the type they
+  /// represent.
   ///
   final bool expandTypeAliases;
 
@@ -164,6 +187,7 @@ class ReplaceTypeParametersVisitor extends BaseStringTypeVisitor {
   ReplaceTypeParametersVisitor newInstance() => ReplaceTypeParametersVisitor(
         originLibrary,
         typeArgumentsReplacement: typeArgumentsReplacement,
+        invalidTypeThrows: invalidTypeThrows,
         expandTypeAliases: expandTypeAliases,
       );
 
@@ -172,8 +196,8 @@ class ReplaceTypeParametersVisitor extends BaseStringTypeVisitor {
     final replacement = typeArgumentsReplacement[type.element];
 
     if (replacement != null) {
-      var result = replacement
-          .accept(StringTypeVisitor(originLibrary, expandTypeAliases: true));
+      var result = replacement.accept(StringTypeVisitor(originLibrary,
+          invalidTypeThrows: invalidTypeThrows, expandTypeAliases: true));
 
       // If the type parameter is nullable, and the replacement is not, we add
       // the '?'.

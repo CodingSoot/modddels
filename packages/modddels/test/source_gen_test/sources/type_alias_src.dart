@@ -5,92 +5,93 @@ import '_common.dart';
 import 'type_alias_imports.dart' as prefix;
 
 /* -------------------------------------------------------------------------- */
-/*               The expanded type alias can't contain 'dynamic'              */
+/*            The expanded type alias can't contain an invalid type           */
 /* -------------------------------------------------------------------------- */
-
-typedef DynamicType = dynamic;
+//ignore: undefined_class
+typedef InvalidType = Incorrect;
 
 typedef GenericType1<T> = Map<T, String>;
 
 typedef GenericType2<T1, T2> = Map<GenericType1<T1?>, T2>;
 
-typedef DynamicTypeArg1 = List<dynamic>;
+//ignore: non_type_as_type_argument
+typedef InvalidTypeArg1 = List<Incorrect>;
 
-typedef DynamicTypeArg2 = List<prefix.DynamicType2>;
+typedef InvalidTypeArg2 = List<prefix.InvalidType2>;
 
 @ShouldThrow(
-  'Could not expand the type alias. Make sure all type arguments are not '
-  'dynamic and are available generation-time, or don\'t use a type alias.',
+  'Could not expand the type alias. Make sure all type arguments are valid '
+  'types that are available generation-time, or don\'t use a type alias.',
   element: 'param',
 )
 @Modddel(validationSteps: noVSteps)
-class DynamicTypeAlias1 extends SingleValueObject {
-  DynamicTypeAlias1._();
+class InvalidTypeAlias1 extends SingleValueObject {
+  InvalidTypeAlias1._();
 
-  factory DynamicTypeAlias1.f({
-    required Map<String, List<prefix.DynamicType2>> param,
+  factory InvalidTypeAlias1.f({
+    required Map<String, List<prefix.InvalidType2>> param,
   }) =>
-      DynamicTypeAlias1._();
+      InvalidTypeAlias1._();
 }
 
 @ShouldThrow(
-  'Could not expand the type alias. Make sure all type arguments are not '
-  'dynamic and are available generation-time, or don\'t use a type alias.',
+  'Could not expand the type alias. Make sure all type arguments are valid '
+  'types that are available generation-time, or don\'t use a type alias.',
   element: 'param2',
 )
 @Modddel(validationSteps: noVSteps)
-class DynamicTypeAlias2 extends MultiValueObject {
-  DynamicTypeAlias2._();
+class InvalidTypeAlias2 extends MultiValueObject {
+  InvalidTypeAlias2._();
 
-  factory DynamicTypeAlias2(
+  factory InvalidTypeAlias2(
     GenericType1<AClass> param1,
-    DynamicTypeArg1 param2,
+    InvalidTypeArg1 param2,
   ) =>
-      DynamicTypeAlias2._();
+      InvalidTypeAlias2._();
 }
 
 @ShouldThrow(
-  'Could not expand the type alias. Make sure all type arguments are not '
-  'dynamic and are available generation-time, or don\'t use a type alias.',
+  'Could not expand the type alias. Make sure all type arguments are valid '
+  'types that are available generation-time, or don\'t use a type alias.',
   element: 'param2',
 )
 @Modddel(validationSteps: noVSteps)
-class DynamicTypeAlias3 extends SimpleEntity {
-  DynamicTypeAlias3._();
+class InvalidTypeAlias3 extends SimpleEntity {
+  InvalidTypeAlias3._();
 
-  factory DynamicTypeAlias3(
+  factory InvalidTypeAlias3(
     GenericType2<AClass, String> param1,
-    DynamicTypeArg2 param2,
+    InvalidTypeArg2 param2,
   ) =>
-      DynamicTypeAlias3._();
+      InvalidTypeAlias3._();
 }
 
 @ShouldThrow(
-  'Could not expand the type alias. Make sure all type arguments are not '
-  'dynamic and are available generation-time, or don\'t use a type alias.',
+  'Could not expand the type alias. Make sure all type arguments are valid '
+  'types that are available generation-time, or don\'t use a type alias.',
   element: 'param',
 )
 @Modddel(validationSteps: noVSteps)
-class DynamicTypeAlias4 extends ListEntity {
-  DynamicTypeAlias4._();
+class InvalidTypeAlias4 extends ListEntity {
+  InvalidTypeAlias4._();
 
-  factory DynamicTypeAlias4(
-    GenericType2<DynamicTypeArg2, AClass> param,
+  factory InvalidTypeAlias4(
+    GenericType2<InvalidTypeArg2, AClass> param,
   ) =>
-      DynamicTypeAlias4._();
+      InvalidTypeAlias4._();
 }
 
 @ShouldThrow(
-  'Could not expand the type alias. Make sure all type arguments are not '
-  'dynamic and are available generation-time, or don\'t use a type alias.',
+  'Could not expand the type alias. Make sure all type arguments are valid '
+  'types that are available generation-time, or don\'t use a type alias.',
   element: 'param',
 )
 @Modddel(validationSteps: noVSteps)
-class DynamicTypeAlias5 extends MapEntity {
-  DynamicTypeAlias5._();
+class InvalidTypeAlias5 extends MapEntity {
+  InvalidTypeAlias5._();
 
-  factory DynamicTypeAlias5(
-    Map<AClass, DynamicType> param,
+  factory InvalidTypeAlias5(
+    Map<AClass, InvalidType> param,
   ) =>
-      DynamicTypeAlias5._();
+      InvalidTypeAlias5._();
 }

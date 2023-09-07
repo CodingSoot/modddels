@@ -641,7 +641,7 @@ void _assertValidFailureTypes(List<ParsedValidationStep> parsedVSteps) {
 
     if (nullableType(failureType) == failureType) {
       throw UnresolvedValidationException(
-        'The failureType must not be nullable.',
+        'The failure type must not be nullable.',
         failedValidation: parsedValidation,
       );
     }

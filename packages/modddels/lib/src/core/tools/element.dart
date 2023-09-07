@@ -5,6 +5,7 @@ import 'package:build/build.dart';
 import 'package:collection/collection.dart';
 import 'package:modddels/src/core/tools/ast.dart';
 import 'package:modddels/src/core/tools/imports.dart';
+import 'package:modddels/src/core/tools/type_visitors/invalid_type_exception.dart';
 import 'package:modddels/src/core/tools/type_visitors/type_visitor.dart';
 import 'package:modddels/src/core/tools/type_visitors/type_visitor_base.dart';
 import 'package:modddels/src/core/utils.dart';
@@ -61,15 +62,19 @@ Future<String> documentationOf(
 ///
 /// **How it works :**
 ///
-/// 1. We use the [StringTypeVisitor] to visit the [DartType] of the element.
-/// 2. If the resulting type contains 'dynamic' (whether the full type is
-///    dynamic or one of the type args is dynamic), it could be because that
-///    type (or one of its type args) is not defined generation-time. So :
+/// 1. We use the [StringTypeVisitor] to visit the [DartType] of the element
+///    with [StringTypeVisitor.invalidTypeThrows] set to true.
+/// 2. If the resulting type is/contains an [InvalidType], it could be because
+///    that type is not defined generation-time. So we re-visit the [DartType]
+///    of the element with [StringTypeVisitor.invalidTypeThrows] set to false,
+///    meaning the [InvalidType] is replaced with 'dynamic'.
 ///   - (a) If the type is/contains a type alias that must be expanded : We
 ///     can't possibly expand the type alias from the source code -> we throw an
 ///     error.
-///   - (b) Or else : We try to extract it directly from the source code using
-///     [_extractTypeFromSource].
+///   - (b) Or else : We try to extract the type directly from the source code
+///     using [_extractTypeFromSource].
+///   - (c) If the latter fails, we use the string of the type where the
+///     [InvalidType] is replaced with 'dynamic'.
 ///
 String parseTypeSource(
   LibraryElement originLibrary,
@@ -77,40 +82,53 @@ String parseTypeSource(
   required bool expandTypeAliases,
 }) {
   // 1.
-  final stringType = element.type
-      .accept(StringTypeVisitor(
-        originLibrary,
-        expandTypeAliases: expandTypeAliases,
-      ))
-      .trim();
+  try {
+    final stringType = element.type
+        .accept(StringTypeVisitor(
+          originLibrary,
+          invalidTypeThrows: true,
+          expandTypeAliases: expandTypeAliases,
+        ))
+        .trim();
 
-  if (!stringType.contains('dynamic')) {
     return stringType;
   }
-
   // 2.
   // (a)
-  if (expandTypeAliases) {
-    if (_typeIsOrContainsTypeAlias(
-      element: element,
-      expandedStringType: stringType,
-      originLibrary: originLibrary,
-    )) {
-      throw InvalidGenerationSourceError(
-        'Could not expand the type alias. Make sure all type arguments are not '
-        'dynamic and are available generation-time, or don\'t use a type alias.',
-        element: element,
-      );
-    }
-  }
+  on InvalidTypeException {
+    final stringType = element.type
+        .accept(StringTypeVisitor(
+          originLibrary,
+          invalidTypeThrows: false,
+          expandTypeAliases: expandTypeAliases,
+        ))
+        .trim();
 
-  // (b)
-  return _extractTypeFromSource(element) ?? stringType;
+    if (expandTypeAliases) {
+      if (_typeIsOrContainsTypeAlias(
+        element: element,
+        expandedStringType: stringType,
+        originLibrary: originLibrary,
+      )) {
+        throw InvalidGenerationSourceError(
+          'Could not expand the type alias. Make sure all type arguments are valid '
+          'types that are available generation-time, or don\'t use a type alias.',
+          element: element,
+        );
+      }
+    }
+
+    // (b)
+    return _extractTypeFromSource(element) ??
+        // (c)
+        stringType;
+  }
 }
 
 /// Whether the type of the [element] is or contains an alias. The
 /// [expandedStringType] must be the result of using the [StringTypeVisitor]
-/// with [StringTypeVisitor.expandTypeAliases] set to true.
+/// with [StringTypeVisitor.expandTypeAliases] set to true and
+/// [StringTypeVisitor.invalidTypeThrows] set to false.
 ///
 /// 1. We check if the type itself is a type alias.
 /// 2. Using the [StringTypeVisitor], we check if the [expandedStringType] is
@@ -118,9 +136,9 @@ String parseTypeSource(
 ///    containing a type alias.
 /// 3. At this point, there is still one case where the type might still be /
 ///    contain a type alias. Due to the way the dart analyzer works, when a
-///    typedef evaluates to dynamic, the `element.type` looses all information
-///    about the alias(es) referencing that typedef, so the two previous methods
-///    fail to detect them. For example :
+///    typedef evaluates to [DynamicType] or [InvalidType], the `element.type`
+///    looses all information about the alias(es) referencing that typedef, so
+///    the two previous methods fail to detect them. For example :
 ///
 ///    ```dart
 ///    typedef MyType = Inexistant; // This class doesn't exist generation-time.
@@ -129,14 +147,16 @@ String parseTypeSource(
 ///    List<MyType> param2;
 ///    ```
 ///
-///    In this example, `MyType` evaluates to `dynamic`, so :
-///    - For param1 : `param1Element.type` is considered a [DynamicType]. This
+///    In this example, `MyType` evaluates to [InvalidType], so :
+///    - For param1 : `param1Element.type` is considered an [InvalidType]. This
 ///      means that its alias is null, and thus using the [StringTypeVisitor]
-///      always returns `dynamic` (no matter the value of
+///      (with [StringTypeVisitor.invalidTypeThrows] set to false) always
+///      returns `dynamic` (no matter the value of
 ///      [StringTypeVisitor.expandTypeAliases]).
-///    - For param2 : The type argument is considered a [DynamicType]. This
+///    - For param2 : The type argument is considered an [InvalidType]. This
 ///      means that its alias is null, and thus using the [StringTypeVisitor]
-///      always returns `List<dynamic>` (no matter the value of
+///      (with [StringTypeVisitor.invalidTypeThrows] set to false) always
+///      returns `List<dynamic>` (no matter the value of
 ///      [StringTypeVisitor.expandTypeAliases]).
 ///
 ///    The solution we implement is to extract the type from the source code,
@@ -149,22 +169,32 @@ bool _typeIsOrContainsTypeAlias({
   required String expandedStringType,
   required LibraryElement originLibrary,
 }) {
+  // 1.
   if (element.type.isTypeAlias) {
     return true;
   }
 
+  // 2.
   final unexpandedStringType = element.type
-      .accept(StringTypeVisitor(originLibrary, expandTypeAliases: false))
+      .accept(StringTypeVisitor(
+        originLibrary,
+        expandTypeAliases: false,
+        invalidTypeThrows: false,
+      ))
       .trim();
 
   if (expandedStringType != unexpandedStringType) {
     return true;
   }
 
+  // 3.
   final sourceType = _extractTypeFromSource(element);
 
-  // If the source type is null or dynamic, it's not an alias and doesn't
+  // If the type was omitted, or it's 'dynamic', it's not an alias and doesn't
   // contain an alias.
+  //
+  // TODO : This can be generalized to exclude any type that is a reserved
+  // keyword : dynamic, bool, num...
   if (sourceType == null || isDynamicType(sourceType)) {
     return false;
   }
