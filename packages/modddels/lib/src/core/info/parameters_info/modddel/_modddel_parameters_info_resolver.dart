@@ -753,7 +753,7 @@ _SplitParametersTemplates _splitParametersTemplate(
       (parameter) =>
           _getParameterKind(parameter) == ParameterKind.memberParameter);
 
-  return _SplitParametersTemplates(
+  return (
     dependencyParametersTemplate: dependencyParametersTemplate,
     memberParametersTemplate: memberParametersTemplate,
   );
@@ -794,13 +794,7 @@ ParameterKind _getParameterKind(Parameter parameter) {
   return parameterKind ?? ParameterKind.memberParameter;
 }
 
-class _SplitParametersTemplates {
-  _SplitParametersTemplates({
-    required this.dependencyParametersTemplate,
-    required this.memberParametersTemplate,
-  });
-
-  final ParametersTemplate dependencyParametersTemplate;
-
-  final ParametersTemplate memberParametersTemplate;
-}
+typedef _SplitParametersTemplates = ({
+  ParametersTemplate dependencyParametersTemplate,
+  ParametersTemplate memberParametersTemplate
+});

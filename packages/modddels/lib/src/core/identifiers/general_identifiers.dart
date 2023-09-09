@@ -90,16 +90,11 @@ class GeneralIdentifiers {
 /*                             Grouped Identifiers                            */
 /* -------------------------------------------------------------------------- */
 
-// TODO : These classes should be replaced by records inside
-// [GeneralIdentifiers] once the records feature is available in Dart.
-
 abstract class _GroupedGeneralIdentifiers {
-  _GroupedGeneralIdentifiers(this._generalIdentifiers)
-      : annotatedClassName = _generalIdentifiers.annotatedClassName;
+  _GroupedGeneralIdentifiers(GeneralIdentifiers generalIdentifiers)
+      : annotatedClassName = generalIdentifiers.annotatedClassName;
 
   final String annotatedClassName;
-
-  final GeneralIdentifiers _generalIdentifiers;
 }
 
 class _TopLevelMixinIdentifiers extends _GroupedGeneralIdentifiers {
@@ -127,7 +122,7 @@ class _TopLevelMixinIdentifiers extends _GroupedGeneralIdentifiers {
   /// Example : '$weatherInstance'
   ///
   String get instanceVariableName =>
-      '\$${_generalIdentifiers.annotatedClassName.uncapitalize()}Instance';
+      '\$${annotatedClassName.uncapitalize()}Instance';
 
   /// The parameter representing a private instance of the annotated class.
   ///
