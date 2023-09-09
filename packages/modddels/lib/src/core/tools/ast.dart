@@ -84,6 +84,7 @@ class NullFailureAstVisitor extends SimpleAstVisitor<String> {
         'The maskNb of the "@NullFailure" annotation, when provided, should be '
         'a literal positive integer, while "$maskNbValue" is not.',
         element: annotatedElement,
+        node: maskNbArgument,
       );
     }
 
