@@ -4,24 +4,24 @@ import 'package:modddels_annotation_internal/modddels_annotation_internal.dart';
 /*                                Mock Modddels                               */
 /* -------------------------------------------------------------------------- */
 
-class SingleValueObject {}
+mixin class SingleValueObject {}
 
-class MultiValueObject {}
+mixin class MultiValueObject {}
 
-class SimpleEntity {}
+mixin class SimpleEntity {}
 
 @TypeTemplate('List<#1>')
-class ListEntity extends IterableEntity {}
+mixin class ListEntity implements IterableEntity {}
 
 @TypeTemplate('List<#1,*>')
-class MappedKeysEntity extends IterableEntity {}
+mixin class MappedKeysEntity implements IterableEntity {}
 
 @TypeTemplate('Map<#1,#2>')
-class MapEntity extends Iterable2Entity {}
+mixin class MapEntity implements Iterable2Entity {}
 
-class IterableEntity {}
+mixin class IterableEntity {}
 
-class Iterable2Entity {}
+mixin class Iterable2Entity {}
 
 /* -------------------------------------------------------------------------- */
 /*                                  Examples                                  */
@@ -65,12 +65,12 @@ class AnotherFailure extends Failure {
 
 /* --------------------------------- Classes -------------------------------- */
 
-class AService {}
+mixin class AService {}
 
-class AClass {}
+mixin class AClass {}
 
-class AGeneric<T> {}
+mixin class AGeneric<T> {}
 
-class AGeneric2<T1, T2> {}
+mixin class AGeneric2<T1, T2> {}
 
-class AGeneric3<T1, T2, T3> {}
+mixin class AGeneric3<T1, T2, T3> {}
