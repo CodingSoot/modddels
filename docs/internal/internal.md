@@ -62,15 +62,6 @@ The primary package, `modddels`, depends only on `modddels_annotation_internal` 
   - `Option<A>` type
   - `toNullable()` method
 
-**For `Tuple2`**:
-
-- Same syntax between fpdart and dartz :
-  - `Tuple2<T1,T2>` type
-
-- Added to Dartz via extensions
-  - `Tuple2.first` getter
-  - `Tuple2.second` getter
-
 # Folder Structure
 
 - `core` : This folder contains the core components of the package :

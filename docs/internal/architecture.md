@@ -1907,7 +1907,7 @@ Either<PersonListAvailabilityFailure, _ValidatePersonListAvailability>
 
 ## Iterable2Entity variations
 
-The changes for the Iterable2Entity are pretty similar to [the ones for IterableEntity](#iterableentity-variations), except that we're dealing with a `Tuple2` of iterables instead of only one iterable.
+The changes for the Iterable2Entity are pretty similar to [the ones for IterableEntity](#iterableentity-variations), except that we're dealing with a record of two iterables instead of only one iterable.
 
 Let's take as an example a `FavoriteWeatherMap` MapEntity, which holds a `Map<Person, Weather?>`.
 
@@ -1956,15 +1956,15 @@ static Option<ContentFailure> validateContent(
     _$FavoriteWeatherMapMidHolder holder, FavoriteWeatherMap instance) {
   
   // 1.
-  final tuple = instance.$collectionToIterable(holder.favoriteWeatherMap);
+  final record = instance.$collectionToIterable(holder.favoriteWeatherMap);
   
   // 2.
   return instance.$validateContent(
-      tuple.first.toList(), tuple.second.toList());
+      record.$1.toList(), record.$2.toList());
 }
 ```
 
-1. We convert the collection to a `Tuple2` containing the two iterables.
+1. We convert the collection to a record containing the two iterables.
 2. We convert the first and second iterables to lists that we pass to the `$validateContent` method. It's a method declared in the `Iterable2Entity` superclass.
 
 ### Type-casting in verifyStep methods
@@ -1999,7 +1999,7 @@ Either<FavoriteWeatherAvailabilityFailure,
   // 1.
   if (instance
       .$collectionToIterable(this.favoriteWeatherMap)
-      .second
+      .$2
       .contains(null)) {
     return left(FavoriteWeatherAvailabilityFailure.noValue());
   }
@@ -2010,7 +2010,7 @@ Either<FavoriteWeatherAvailabilityFailure,
 }
 ```
 
-1. The null-checks are performed by converting the collection to a `Tuple2` of iterables, then checking if the concerned iterable _(in our example the second one)_ contains any `null` value. This conversion is made using the `$collectionToIterable` method, which is declared in the `ListEntity` superclass.
+1. The null-checks are performed by converting the collection to a record of iterables, then checking if the concerned iterable _(in our example the second one)_ contains any `null` value. This conversion is made using the `$collectionToIterable` method, which is declared in the `ListEntity` superclass.
 2. After all null-checks are passed, the collection is casted (in this example, it's casted from `Map<ValidPerson, ValidWeather?>` to `Map<ValidPerson, ValidWeather>`).
 
 # Unit-testing Modddels

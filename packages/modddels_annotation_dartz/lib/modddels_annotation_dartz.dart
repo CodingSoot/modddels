@@ -30,7 +30,7 @@ export 'package:modddels_annotation_internal/modddels_annotation_internal.dart'
         InvalidEntity;
 
 export 'package:modddels_annotation_dartz/src/dartz_compatibility.dart'
-    show EitherCompat, Tuple2Compat;
+    show EitherCompat;
 export 'package:dartz/dartz.dart';
 export 'package:test/test.dart';
 
