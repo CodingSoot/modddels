@@ -6,7 +6,7 @@ environment:
 publish_to: none
 
 dependencies:
-  fpdart: ^0.6.0
+  fpdart: ^1.1.0
   freezed_annotation: ^2.4.1
   # modddels_annotation_dartz:
     # path: ../../modddels_annotation_dartz
