@@ -159,26 +159,16 @@ class SSealedValidationInfoResolver {
     // iteratable. See  : https://stackoverflow.com/a/44302727/13297133
     final resolvedVSteps = parsedVSteps.map(resolve).toList();
 
-    return _SSealedValidationInfo(
+    return (
       validationSteps: resolvedVSteps,
       validParametersTemplate: nextParameterTemplate,
     );
   }
 }
 
-/// Holds the resolved validation info of the annotated super-sealed class.
+/// The resolved validation info of the annotated super-sealed class.
 ///
-class _SSealedValidationInfo {
-  const _SSealedValidationInfo({
-    required this.validationSteps,
-    required this.validParametersTemplate,
-  });
-
-  /// See [SSealedValidationInfoResolver.validationSteps].
-  ///
-  final List<ValidationStepInfo> validationSteps;
-
-  /// See [SSealedValidationInfoResolver.validParametersTemplate].
-  ///
-  final ParametersTemplate validParametersTemplate;
-}
+typedef _SSealedValidationInfo = ({
+  List<ValidationStepInfo> validationSteps,
+  ParametersTemplate validParametersTemplate
+});

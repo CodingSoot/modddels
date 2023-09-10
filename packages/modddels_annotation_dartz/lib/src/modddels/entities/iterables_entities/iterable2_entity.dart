@@ -101,9 +101,9 @@ abstract class MapEntity<I extends InvalidEntity, V extends ValidEntity>
 
   @protected
   @optionalTypeArgs
-  Tuple2<Iterable<R1>, Iterable<R2>> $collectionToIterable<R1, R2>(
+  (Iterable<R1>, Iterable<R2>) $collectionToIterable<R1, R2>(
           Map<R1, R2> collection) =>
-      Tuple2(collection.keys, collection.values);
+      (collection.keys, collection.values);
 
   // NB : `Map.cast` keeps the Map unmodifiable.
   @protected
@@ -133,9 +133,9 @@ abstract class KtMapEntity<I extends InvalidEntity, V extends ValidEntity>
 
   @protected
   @optionalTypeArgs
-  Tuple2<Iterable<R1>, Iterable<R2>> $collectionToIterable<R1, R2>(
+  (Iterable<R1>, Iterable<R2>) $collectionToIterable<R1, R2>(
           KtMap<R1, R2> collection) =>
-      Tuple2(collection.keys.iter, collection.values.iter);
+      (collection.keys.iter, collection.values.iter);
 
   @protected
   @optionalTypeArgs
@@ -164,9 +164,9 @@ abstract class IMapEntity<I extends InvalidEntity, V extends ValidEntity>
 
   @protected
   @optionalTypeArgs
-  Tuple2<Iterable<R1>, Iterable<R2>> $collectionToIterable<R1, R2>(
+  (Iterable<R1>, Iterable<R2>) $collectionToIterable<R1, R2>(
           IMap<R1, R2> collection) =>
-      Tuple2(collection.keys().toIterable(), collection.values().toIterable());
+      (collection.keys().toIterable(), collection.values().toIterable());
 
   @protected
   @optionalTypeArgs

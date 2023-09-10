@@ -1353,6 +1353,8 @@ class InstantiatedOutsideParam2 extends MapEntity {
 
 const maskNb1 = 1;
 
+/// TODO : Add node argument when supported by source_gen_test. See
+/// https://github.com/kevmoo/source_gen_test/issues/55
 @ShouldThrow(
   'The maskNb of the "@NullFailure" annotation, when provided, should be '
   'a literal positive integer, while "maskNb1" is not.',
@@ -1368,6 +1370,8 @@ class NonLiteralPositiveInteger1 extends MultiValueObject {
       NonLiteralPositiveInteger1._();
 }
 
+/// TODO : Add node argument when supported by source_gen_test. See
+/// https://github.com/kevmoo/source_gen_test/issues/55
 @ShouldThrow(
   'The maskNb of the "@NullFailure" annotation, when provided, should be '
   'a literal positive integer, while "-1" is not.',

@@ -512,8 +512,8 @@ class Iterable2EntityTopLevelModddelElements
 
     return '''
     static Option<$contentFailureClassName> $validateContentMethodName($parameters) {
-      final tuple = $instanceVariableName.$collectionToIterableMethodName($holderVariableName.${iterableParameter.name});
-      return $instanceVariableName.$validateIterableContentMethodName(tuple.first.toList(), tuple.second.toList());
+      final record = $instanceVariableName.$collectionToIterableMethodName($holderVariableName.${iterableParameter.name});
+      return $instanceVariableName.$validateIterableContentMethodName(record.\$1.toList(), record.\$2.toList());
     }
     ''';
   }

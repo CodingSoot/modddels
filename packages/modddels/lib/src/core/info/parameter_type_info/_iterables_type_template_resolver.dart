@@ -35,20 +35,21 @@ class IterablesTypeTemplateResolver {
       ...annotatedClass.allSupertypes.map((e) => e.element)
     ];
 
-    final classWithAnnotation = classesToExplore.firstWhereOrNull((element) =>
-        element.metadata.any((annotation) => typeTemplateAnnotationInfo.matches(
-              annotation,
-              annotatedElement: element,
-            )));
+    final classWithTypeTemplateAnnotation = classesToExplore.firstWhereOrNull(
+        (element) => element.metadata
+            .any((annotation) => typeTemplateAnnotationInfo.matches(
+                  annotation,
+                  annotatedElement: element,
+                )));
 
-    final typeTemplateAnnotationList = classWithAnnotation?.metadata
+    final typeTemplateAnnotationList = classWithTypeTemplateAnnotation?.metadata
         .where((annotation) => typeTemplateAnnotationInfo.matches(
               annotation,
-              annotatedElement: classWithAnnotation,
+              annotatedElement: classWithTypeTemplateAnnotation,
             ))
         .toList();
 
-    if (classWithAnnotation == null ||
+    if (classWithTypeTemplateAnnotation == null ||
         typeTemplateAnnotationList == null ||
         typeTemplateAnnotationList.isEmpty) {
       throw InvalidGenerationSourceError(
@@ -60,7 +61,7 @@ class IterablesTypeTemplateResolver {
     if (typeTemplateAnnotationList.length > 1) {
       throw InvalidGenerationSourceError(
         'A class can\'t have more than one TypeTemplate annotation.',
-        element: classWithAnnotation,
+        element: classWithTypeTemplateAnnotation,
       );
     }
 
@@ -69,7 +70,7 @@ class IterablesTypeTemplateResolver {
     // 2.
     final parsedTypeTemplate = ParsedTypeTemplate.fromTypeTemplateAnnotation(
       annotation: typeTemplateAnnotation,
-      annotatedElement: classWithAnnotation,
+      annotatedElement: classWithTypeTemplateAnnotation,
     );
 
     final typeTemplate = parsedTypeTemplate.typeTemplate;
@@ -81,7 +82,7 @@ class IterablesTypeTemplateResolver {
     } on TypeTemplateSyntaxError catch (error) {
       throw InvalidGenerationSourceError(
         error.toString(),
-        element: classWithAnnotation,
+        element: classWithTypeTemplateAnnotation,
       );
     }
 
@@ -89,7 +90,7 @@ class IterablesTypeTemplateResolver {
     _assertCorrectMaskCount(
       typeTemplateExpression: typeTemplateExpression,
       masksCount: masksCount,
-      classWithAnnotation: classWithAnnotation,
+      classWithTypeTemplateAnnotation: classWithTypeTemplateAnnotation,
     );
 
     return IterablesTypeTemplateResolver._(
@@ -102,12 +103,12 @@ class IterablesTypeTemplateResolver {
 void _assertCorrectMaskCount({
   required TypeTemplateExpression typeTemplateExpression,
   required int masksCount,
-  required InterfaceElement classWithAnnotation,
+  required InterfaceElement classWithTypeTemplateAnnotation,
 }) {
   if (typeTemplateExpression.masksCount != masksCount) {
     throw InvalidGenerationSourceError(
       'The TypeTemplate should contain $masksCount mask(s).',
-      element: classWithAnnotation,
+      element: classWithTypeTemplateAnnotation,
     );
   }
 }

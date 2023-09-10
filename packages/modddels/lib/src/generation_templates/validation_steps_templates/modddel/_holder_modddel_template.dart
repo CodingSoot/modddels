@@ -349,11 +349,12 @@ class Iterable2HolderModddelTemplate
           GlobalIdentifiers.iterablesIdentifiers.collectionToIterableMethodName;
 
       return nullFailures.map((nullFailure) {
-        final tupleValue = nullFailure.maskNb == 1 ? 'first' : 'second';
+        final recordField = nullFailure.maskNb == 1 ? r'$1' : r'$2';
+
         return '''
         if ($instanceVariableName
             .$collectionToIterableMethodName(${iterableParameter.name})
-            .$tupleValue
+            .$recordField
             .contains(null)) {
           return left(${nullFailure.failure});
         }

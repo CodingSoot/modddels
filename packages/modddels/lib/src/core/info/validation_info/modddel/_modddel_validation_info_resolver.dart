@@ -203,12 +203,19 @@ class ValueObjectValidationInfoResolver extends ModddelValidationInfoResolver {
     // (See https://stackoverflow.com/a/44302727/13297133).
     final resolvedVSteps = parsedVSteps.map(resolveVStep).toList();
 
-    return _ValueObjectValidationInfo(
+    return (
       allValidationSteps: resolvedVSteps,
       validParametersTemplate: nextParameterTemplate,
     );
   }
 }
+
+/// The resolved validation info of a ValueObject.
+///
+typedef _ValueObjectValidationInfo = ({
+  List<ValidationStepInfo> allValidationSteps,
+  ParametersTemplate validParametersTemplate,
+});
 
 /* -------------------------------- Entities -------------------------------- */
 
@@ -485,7 +492,7 @@ class EntityValidationInfoResolver extends ModddelValidationInfoResolver {
     final resolvedLateVSteps =
         splitParsedVSteps.lateParsedVSteps.map(resolveVStep).toList();
 
-    return _EntityValidationInfo(
+    return (
       earlyValidationSteps: resolvedEarlyVSteps,
       contentValidationStep: resolvedContentVStep,
       lateValidationSteps: resolvedLateVSteps,
@@ -494,26 +501,18 @@ class EntityValidationInfoResolver extends ModddelValidationInfoResolver {
   }
 }
 
+/// The resolved validation info of an Entity.
+///
+typedef _EntityValidationInfo = ({
+  List<ValidationStepInfo> earlyValidationSteps,
+  ValidationStepInfo contentValidationStep,
+  List<ValidationStepInfo> lateValidationSteps,
+  ParametersTemplate validParametersTemplate,
+});
+
 /* -------------------------------------------------------------------------- */
 /*                                    Other                                   */
 /* -------------------------------------------------------------------------- */
-
-/// Holds the resolved validation info of a ValueObject.
-///
-class _ValueObjectValidationInfo {
-  const _ValueObjectValidationInfo({
-    required this.allValidationSteps,
-    required this.validParametersTemplate,
-  });
-
-  /// See [ValueObjectValidationInfoResolver.allValidationSteps].
-  ///
-  final List<ValidationStepInfo> allValidationSteps;
-
-  /// See [ValueObjectValidationInfoResolver.validParametersTemplate].
-  ///
-  final ParametersTemplate validParametersTemplate;
-}
 
 /// Holds the [ParsedValidationStep]s of an Entity that are split into
 /// [earlyParsedVSteps], the [contentParsedVStep] and
@@ -535,33 +534,6 @@ class _EntityParsedValidationSteps {
         contentParsedVStep,
         ...lateParsedVSteps,
       ];
-}
-
-/// Holds the resolved validation info of an Entity.
-///
-class _EntityValidationInfo {
-  const _EntityValidationInfo({
-    required this.earlyValidationSteps,
-    required this.contentValidationStep,
-    required this.lateValidationSteps,
-    required this.validParametersTemplate,
-  });
-
-  /// See [EntityValidationInfoResolver.earlyValidationSteps].
-  ///
-  final List<ValidationStepInfo> earlyValidationSteps;
-
-  /// See [EntityValidationInfoResolver.contentValidationStep].
-  ///
-  final ValidationStepInfo contentValidationStep;
-
-  /// See [EntityValidationInfoResolver.lateValidationSteps].
-  ///
-  final List<ValidationStepInfo> lateValidationSteps;
-
-  /// See [EntityValidationInfoResolver.validParametersTemplate].
-  ///
-  final ParametersTemplate validParametersTemplate;
 }
 
 /// Returns a copy of the [parsedVSteps] where the name of each parsed
@@ -605,7 +577,7 @@ void _assertNotEmpty(List<ParsedValidationStep> parsedVSteps) {
 void _assertValidFailureTypes(List<ParsedValidationStep> parsedVSteps) {
   final allParsedValidations = parsedVSteps
       .map((parsedVStep) => parsedVStep.parsedValidations)
-      .expand(id)
+      .expand(identity)
       .toList();
 
   for (final parsedValidation in allParsedValidations) {
@@ -684,7 +656,7 @@ void _assertValidNames(List<ParsedValidationStep> parsedVSteps) {
   // B. The validations names
   final parsedValidations = parsedVSteps
       .map((parsedVStep) => parsedVStep.parsedValidations)
-      .expand(id)
+      .expand(identity)
       .toList();
 
   for (final parsedValidation in parsedValidations) {
@@ -722,7 +694,7 @@ void _assertValidNullFailureReferences({
 
   final parsedValidations = parsedVSteps
       .map((parsedVStep) => parsedVStep.parsedValidations)
-      .expand(id)
+      .expand(identity)
       .toList();
 
   for (final param in allNullFailureParams) {
@@ -784,7 +756,7 @@ void _assertNoConflictingNames({
   // B. The validations names
   final allValidations = allValidationSteps
       .map((validationStep) => validationStep.validations)
-      .expand(id)
+      .expand(identity)
       .toList();
 
   for (final validation in allValidations) {

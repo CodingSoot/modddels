@@ -1,4 +1,3 @@
-import 'package:fpdart/fpdart.dart';
 import 'package:collection/collection.dart';
 import 'package:modddels/src/core/info/parameters_info/_parameter_kind.dart';
 import 'package:modddels/src/core/info/parameters_info/_unresolved_parameters_info_exception.dart';
@@ -67,10 +66,10 @@ class SSealedParametersInfoResolver {
           parametersInfo.memberParametersTemplate.allParameters;
 
       return [
-        ...dependencyParameters
-            .map((p) => Tuple2(p, ParameterKind.dependencyParameter)),
-        ...memberParameters
-            .map((p) => Tuple2(p, ParameterKind.memberParameter)),
+        ...dependencyParameters.map((p) =>
+            (parameter: p, parameterKind: ParameterKind.dependencyParameter)),
+        ...memberParameters.map((p) =>
+            (parameter: p, parameterKind: ParameterKind.memberParameter)),
       ];
     }).toList();
 
@@ -81,8 +80,8 @@ class SSealedParametersInfoResolver {
       // shared property, and we collect it.
       final List<_ParameterWithKind> caseParameters =
           parametersLists.map((params) {
-        final caseParam = params
-            .singleWhereOrNull((p) => p.first.name == parsedSharedProp.name);
+        final caseParam = params.singleWhereOrNull(
+            (p) => p.parameter.name == parsedSharedProp.name);
         if (caseParam == null) {
           throw UnresolvedParametersInfoException(
               'The shared prop "${parsedSharedProp.name}" should be present in '
@@ -104,7 +103,7 @@ class SSealedParametersInfoResolver {
         ignoreNonNullTransformation:
             parsedSharedProp.ignoreNonNullTransformation,
         ignoreNullTransformation: parsedSharedProp.ignoreNullTransformation,
-        caseParameters: caseParameters.map((p) => p.first).toList(),
+        caseParameters: caseParameters.map((p) => p.parameter).toList(),
         parameterKind: parameterKind,
       );
     }).toList();
@@ -137,7 +136,10 @@ class SSealedParametersInfoResolver {
 
 /// A parameter and its kind.
 ///
-typedef _ParameterWithKind = Tuple2<Parameter, ParameterKind>;
+typedef _ParameterWithKind = ({
+  Parameter parameter,
+  ParameterKind parameterKind
+});
 
 /// Asserts that the [caseParameters] have the same [ParameterKind],
 /// and returns it.
@@ -146,7 +148,7 @@ ParameterKind _assertSameKind({
   required List<_ParameterWithKind> caseParameters,
   required ParsedSharedProp parsedSharedProp,
 }) {
-  final paramKinds = caseParameters.map((p) => p.second).toSet();
+  final paramKinds = caseParameters.map((p) => p.parameterKind).toSet();
 
   final paramKind = paramKinds.singleOrNull;
 

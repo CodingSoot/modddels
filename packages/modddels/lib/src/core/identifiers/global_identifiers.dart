@@ -47,9 +47,6 @@ abstract class GlobalIdentifiers {
 /*                             Grouped Identifiers                            */
 /* -------------------------------------------------------------------------- */
 
-// TODO : These classes should be replaced by records inside [GlobalIdentifiers]
-// once the records feature is available in Dart.
-
 class _CopyWithIdentifiers {
   const _CopyWithIdentifiers._();
 
