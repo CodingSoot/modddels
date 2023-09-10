@@ -577,7 +577,7 @@ void _assertNotEmpty(List<ParsedValidationStep> parsedVSteps) {
 void _assertValidFailureTypes(List<ParsedValidationStep> parsedVSteps) {
   final allParsedValidations = parsedVSteps
       .map((parsedVStep) => parsedVStep.parsedValidations)
-      .expand(id)
+      .expand(identity)
       .toList();
 
   for (final parsedValidation in allParsedValidations) {
@@ -656,7 +656,7 @@ void _assertValidNames(List<ParsedValidationStep> parsedVSteps) {
   // B. The validations names
   final parsedValidations = parsedVSteps
       .map((parsedVStep) => parsedVStep.parsedValidations)
-      .expand(id)
+      .expand(identity)
       .toList();
 
   for (final parsedValidation in parsedValidations) {
@@ -694,7 +694,7 @@ void _assertValidNullFailureReferences({
 
   final parsedValidations = parsedVSteps
       .map((parsedVStep) => parsedVStep.parsedValidations)
-      .expand(id)
+      .expand(identity)
       .toList();
 
   for (final param in allNullFailureParams) {
@@ -756,7 +756,7 @@ void _assertNoConflictingNames({
   // B. The validations names
   final allValidations = allValidationSteps
       .map((validationStep) => validationStep.validations)
-      .expand(id)
+      .expand(identity)
       .toList();
 
   for (final validation in allValidations) {

@@ -53,7 +53,7 @@ class TopLevelElements {
   String get validateMethods {
     final allValidationsExceptContentValidation = validationSteps
         .map((vStep) => vStep.validations)
-        .expand(id)
+        .expand(identity)
         .where((validation) => !validation.isContentValidation)
         .toList();
 
